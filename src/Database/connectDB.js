@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 const mongoose = require('mongoose')
 
 const url = 'mongodb+srv://root:admin@cluster0.gsrso.mongodb.net/batdongsan?retryWrites=true&w=majority';

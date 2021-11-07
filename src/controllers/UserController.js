@@ -1,7 +1,7 @@
 var user = require("../models/user");
 var role = require("../models/role");
 var building = require("../models/building")
-var assignmentbuiding = require("../models/assignmentbuiding")
+var assignmentbuilding = require("../models/asssignmentbuilding")
 class UserController {
 
     //[GET] /user
@@ -31,7 +31,7 @@ class UserController {
     }
     getAllStaffByBuildingID(req, res) {
         var listStaffID;
-        assignmentbuiding.forEach(i => {
+        assignmentbuilding.forEach(i => {
             if (req.body.buildingid == i.buildingid)
                 listStaffID.push(i.staffid)
         })

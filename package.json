@@ -1,0 +1,31 @@
+{
+  "name": "baitaplon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start":"nodemon --inspect app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhtuan9x/baitaplon.git"
+  },
+  "keywords": [
+    "express.js",
+    "github",
+    "nodejs"
+  ],
+  "author": "TuanThanhDinh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhtuan9x/baitaplon/issues"
+  },
+  "homepage": "https://github.com/minhtuan9x/baitaplon#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}

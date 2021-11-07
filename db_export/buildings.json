@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "618781482db46d94379192b2"
+  },
+  "name": "building 1",
+  "address": "p3 quan1",
+  "rentprice": "5trieu/1thang",
+  "rentarea": "500m2",
+  "level": 3,
+  "electricfee": "3000/so",
+  "waterfee": "10000/khoi"
+}]

@@ -4,11 +4,6 @@ const router = express.Router();
 
 
 
-router.use('/',building.index);
-
-    
-
-
-
+router.get('/',building.index);
 
 module.exports = router;

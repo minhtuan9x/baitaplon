@@ -3,7 +3,7 @@ const router = express.Router();
 const user = require('../controllers/UserController');
 
 
-router.use('/',user.index);
+router.get('/',user.findAll);
 
 
 

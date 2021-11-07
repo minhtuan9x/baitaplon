@@ -4,8 +4,6 @@ const route = require('./routes/main');
 const port = 3000
 var db = require("./database/connectDB");
 db();
-
-
 route(app);
 
 app.listen(port, () => {

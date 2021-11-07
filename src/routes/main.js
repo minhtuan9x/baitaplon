@@ -1,4 +1,6 @@
+const homePageController = require('../controllers/HomePageController');
 const buildingRoute = require('../routes/building');
+
 
 function route(app) {
 
@@ -8,10 +10,6 @@ function route(app) {
 
 
 
-
-    //[GET] / (trang chu)
-    app.get('/', (req, res) => {
-        res.send("HOME PAGE");
-    });
+    app.use('/',homePageController.index);
 }
 module.exports = route;

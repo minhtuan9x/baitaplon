@@ -2,12 +2,15 @@
 class BuildingController{
     //[GET]  /building
     index(req, res){
-        res.send('building');
+        res.render('index');
     }
 
     //[GET] /building/insert
     insert(req,res){
-        res.send('viewInsert');
+        res.render('add');
+    }
+    update(req,res){
+        res.render('edit');
     }
     
 }

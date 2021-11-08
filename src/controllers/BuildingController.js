@@ -1,15 +1,23 @@
+const building = require('../models/building');
+
 
 class BuildingController{
     //[GET]  /building
     index(req, res){
-        res.render('index');
+       building.find(function(err,data){
+            if(err) 
+                res.send(err);
+            else{
+                res.send(data);
+            }
+       })
     }
 
     //[GET] /building/insert
-    insert(req,res){
+    insertView(req,res){
         res.render('add');
     }
-    update(req,res){
+    updateView(req,res){
         res.render('edit');
     }
     

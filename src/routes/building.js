@@ -3,9 +3,15 @@ const building = require('../controllers/BuildingController');
 const router = express.Router();
 
 
-
+//[GET] /  
 router.get('/',building.index);
-router.post('/',building.insert);
-router.put('/',building.update);
+//[GET] /insert  
+router.get('/insert',building.insertView);
+//[GET] /update  
+router.get('/update',building.updateView);
+
+
+
+
 
 module.exports = router;

@@ -4,11 +4,12 @@ const building = require('../models/building');
 class BuildingController{
     //[GET]  /building
     index(req, res){
-       building.find(function(err,data){
+       building.findOne({name:"building 1"},function(err,data){
             if(err) 
                 res.send(err);
             else{
-                res.send(data);
+               res.render('show',{item:data});
+               
             }
        })
     }

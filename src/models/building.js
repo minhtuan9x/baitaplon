@@ -7,7 +7,8 @@ var buildingSchema = mongoose.Schema({
     rentarea:String,
     level:Number,
     electricfee:String,
-    waterfee:String
+    waterfee:String,
+    imagelink:String
 })
 var building = mongoose.model("building",buildingSchema);
 module.exports  = building;

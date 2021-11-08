@@ -17,7 +17,6 @@ var buildingSchema = mongoose.Schema({
     renttypeids:Array,
     directory:String,
     note:String
-
 })
 var building = mongoose.model("building",buildingSchema);
 module.exports  = building;

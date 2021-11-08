@@ -3,7 +3,8 @@ class HomePageController{
 
     //[GET] / (HOME PAGE)
     index(req, res){
-        res.send('HOME PAGE');
+        res.render('home/index');
+       // res.send('HOME PAGE')
     }
 
 }

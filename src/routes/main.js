@@ -1,6 +1,6 @@
 const homePageController = require('../controllers/HomePageController');
 const buildingRoute = require('../routes/building');
-const districtRoute = require('../routes/building');
+const districtRoute = require('../routes/district');
 
 
 function route(app) {

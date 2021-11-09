@@ -1,12 +1,12 @@
 const homePageController = require('../controllers/HomePageController');
 const buildingRoute = require('../routes/building');
+const districtRoute = require('../routes/building');
 
-const express = require('express');
-const router = express.Router();
 
 function route(app) {
 
     app.use('/building',buildingRoute); 
+    app.use('/district',districtRoute); 
     
     app.use('/',homePageController.index);
 }

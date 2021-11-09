@@ -1,5 +1,5 @@
 const district = require("../models/district.js");
-const mongoose = require("mongoose")
+
 const util = require("../util/util")
 
 module.exports.getByDistrictID = function (req, res) {

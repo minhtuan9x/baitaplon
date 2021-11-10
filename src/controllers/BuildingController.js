@@ -2,7 +2,7 @@ const building = require('../models/building');
 const district = require('../models/district');
 const renttype = require('../models/renttype');
 
-class BuildingController{
+class BuildingController {
     //[GET] /building  
     index(req, res) {
         building.find(function (err, data) {
@@ -23,13 +23,14 @@ class BuildingController{
                                     rents.push(item3.name)
                             })
                         })
-                        rents.filter((item, index) => rents.indexOf(item) !== index);
+                        var xuli = unique(rents)
                         var dataBuilding = {
+                            "_id": item._id,
                             "name": item.name,
                             "rentarea": item.rentarea,
                             "imagelink": item.imagelink,
                             "address": item.street + "-" + item.ward + "-" + dis,
-                            "renttypes": rents,
+                            "renttypes": xuli,
                             "note": item.note,
                             "managername": item.managername,
                             "managerphone": item.managerphone,
@@ -39,21 +40,21 @@ class BuildingController{
                         results.push(dataBuilding)
                     });
                     //res.json(results);
-                    res.render('building/index',{listBuilding:results});
+                    res.render('building/index', { listBuilding: results });
                 })
             })
         })
 
     }
     //[GET] buidling/insert  
-    insertView(req,res){
+    insertView(req, res) {
         res.render('building/addBuilding')
     }
     //[GET] building/:id/update  
-    updateView(req,res){
+    updateView(req, res) {
         var id = req.params.id;
-        building.findOne({_id:id},function(err,data){
-            if(err) 
+        building.findOne({ _id: id }, function (err, data) {
+            if (err)
                 res.send(err);
             else
                 //res.render('/editBuilding',{item : data});
@@ -61,10 +62,10 @@ class BuildingController{
         })
     }
     //[GET] /search
-    searchName(req,res){
-        var nameBuilding = req.query.nameBuilding.toString(); 
-        building.find({name:nameBuilding},function(err,data){
-            res.render('buidling/searchBuilding',{list:data});
+    searchName(req, res) {
+        var nameBuilding = req.query.nameBuilding.toString();
+        building.find({ name: nameBuilding }, function (err, data) {
+            res.render('buidling/searchBuilding', { list: data });
         });
     }
 
@@ -140,20 +141,29 @@ class BuildingController{
         })
     }
     //[DELETE] /building/:id/delete
-    deleteModel(req,res){
+    deleteModel(req, res) {
         var id = req.params.id;
-        building.deleteOne({_id:id},function(err,data){
-            if(err) 
+        building.deleteOne({ _id: id }, function (err, data) {
+            if (err)
                 res.send(err);
-            else{
-                res.redirect('/building');
+            else {
+                res.status(200).json("oke");
             }
         })
-        
+
     }
 
 
 
+}
+function unique(arr) {
+    var newArr = []
+    for (var i = 0; i < arr.length; i++) {
+        if (!newArr.includes(arr[i])) {
+            newArr.push(arr[i])
+        }
+    }
+    return newArr
 }
 
 module.exports = new BuildingController;

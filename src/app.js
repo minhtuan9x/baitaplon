@@ -11,7 +11,7 @@ const port = 3000
 var db = require("./database/connectDB");
 db();
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(methodOverride('_method'));
@@ -19,7 +19,7 @@ app.use(methodOverride('_method'));
 
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname,'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 route(app);
 

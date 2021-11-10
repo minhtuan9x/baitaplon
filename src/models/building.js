@@ -4,7 +4,7 @@ var buildingSchema = mongoose.Schema({
     rentarea:String,
     imagelink:String,
     street:String,
-    districtid:Number,
+    districtid:String,
     ward:String,
     renttypeids:Array,
     note:String,

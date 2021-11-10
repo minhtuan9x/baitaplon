@@ -5,6 +5,7 @@ const util = require("../util/util")
 module.exports.getByDistrictID = function (req, res) {
     district.findOne({ _id: util.checkObjectID(req.params.id) }, function (err, data) {
         if (err) throw err;
+        module.exports.data = data;
         res.json(data);
     })
 }

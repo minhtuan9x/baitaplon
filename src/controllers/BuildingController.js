@@ -4,11 +4,11 @@ const district = require('../models/district')
 class BuildingController{
 //[GET] /building  
 index(req,res){
-    res.render('/building/index');
+    res.render('building/indexBuilding');
 }
 //[GET] buidling/insert  
 insertView(req,res){
-    res.render('/building/addBuilding')
+    res.render('building/addBuilding')
 }
 //[GET] building/:id/update  
 updateView(req,res){
@@ -17,14 +17,15 @@ updateView(req,res){
         if(err) 
             res.send(err);
         else
-            res.render('/editBuilding',{item : data});
+            //res.render('/editBuilding',{item : data});
+            res.send(data);
     })
 }
 //[GET] /search/:nameBuilding
 searchName(req,res){
     var nameBuilding = req.query.nameBuilding.toString(); 
     building.find({name:nameBuilding},function(err,data){
-        res.render('/buidling/searchBuilding',{list:data});
+        res.render('buidling/searchBuilding',{list:data});
     });
 }
 //[POST] /building/insert

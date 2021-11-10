@@ -24,19 +24,63 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/string-strip-html/dist/string-strip-html.umd.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <!-- Navigation-->
     <%-include ("../public/ejspub/header.ejs")%>
-    <!-- Page Header-->
+        <!-- Page Header-->
 
-
-    </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="/js/scripts.js"></script>
+        <div class="container"> 
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Rent Area</th>
+                  <th>Address</th>
+                  <th>Rent Type</th>
+                  <th>Manager Name</th>
+                  <th>Manager Phone</th>
+                  <th>Rent Price</th>
+                  <th>Sell Price</th>
+                  <th>Note</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%listBuilding.forEach(item=>{%>
+                    <tr>
+                        <td><%=item.name%></td> 
+                        <td><%=item.rentarea%></td>
+                        <td><%=item.address%></td>
+                        <td><%=item.renttypes%></td>
+                        <td><%=item.managername%></td>
+                        <td><%=item.managerphone%></td>
+                        <td><%=item.rentprice%></td>
+                        <td><%=item.sellprice%></td>
+                        <td><%=item.note%></td>
+                        <td><image src="<%=item.imagelink%>" width="300" height="300"></image></td>
+                        <td>
+                            <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default" value=<%=item.mssv%>
+                                onclick="updateAction(value)"><i class="fas fa-user-edit"></i></button>
+                            <button id="xoa" data-toggle="tooltip" title="Delete" class="btn btn-default" value=<%=item.mssv%>
+                                onclick="deleteAction(value)"><i class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </tr>
+               <% })%>
+              </tbody>
+            </table>
+          </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/js/scripts.js"></script>
 </body>
 
 </html>

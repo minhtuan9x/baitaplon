@@ -23,6 +23,7 @@ class BuildingController{
                                     rents.push(item3.name)
                             })
                         })
+                        rents.filter((item, index) => rents.indexOf(item) !== index);
                         var dataBuilding = {
                             "name": item.name,
                             "rentarea": item.rentarea,
@@ -31,6 +32,7 @@ class BuildingController{
                             "renttypes": rents,
                             "note": item.note,
                             "managername": item.managername,
+                            "managerphone": item.managerphone,
                             "rentprice": item.rentprice,
                             "sellprice": item.sellprice
                         }

@@ -36,8 +36,8 @@ class BuildingController{
                         }
                         results.push(dataBuilding)
                     });
-                    res.json(results);
-                    //res.render('/building/index',{listBuilding:results});
+                    //res.json(results);
+                    res.render('building/index',{listBuilding:results});
                 })
             })
         })

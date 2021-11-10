@@ -4,6 +4,7 @@ const route = require('./routes/main');
 const ejs = require('ejs');
 const path = require('path');
 const methodOverride = require('method-override');
+app.use(express.static(__dirname + '/views/public'));
 
 
 

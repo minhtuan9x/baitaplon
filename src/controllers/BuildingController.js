@@ -58,7 +58,7 @@ class BuildingController{
                 res.send(data);
         })
     }
-    //[GET] /search/:nameBuilding
+    //[GET] /search
     searchName(req,res){
         var nameBuilding = req.query.nameBuilding.toString(); 
         building.find({name:nameBuilding},function(err,data){
@@ -70,7 +70,7 @@ class BuildingController{
 
     //[GET] buidling/insert  
     insertView(req, res) {
-        res.render('/building/addBuilding')
+        res.render('building/addBuilding')
     }
     //[GET] building/:id/update  
     updateView(req, res) {
@@ -79,7 +79,7 @@ class BuildingController{
             if (err)
                 res.send(err);
             else
-                res.render('/editBuilding', { item: data });
+                res.render('building/editBuilding', { item: data });
         })
     }
     //[GET] /search/:nameBuilding
@@ -138,7 +138,17 @@ class BuildingController{
         })
     }
     //[DELETE] /building/:id/delete
-
+    deleteModel(req,res){
+        var id = req.params.id;
+        building.deleteOne({_id:id},function(err,data){
+            if(err) 
+                res.send(err);
+            else{
+                res.redirect('/building');
+            }
+        })
+        
+    }
 
 
 

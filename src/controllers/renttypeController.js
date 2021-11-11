@@ -1,83 +1,82 @@
 const e = require('express');
 const renttype = require('../models/renttype');
 
-class renttypeController{
+class renttypeController {
     //[GET] /renttype
-    index(req,res){
-        renttype.find(function(err,data){
-            if(err)
+    index(req, res) {
+        renttype.find(function (err, data) {
+            if (err)
                 res.send(err);
-            else{
-                res.render('renttype/index',{list:data});
+            else {
+                res.render('renttype/index', { listRenttype: data });
                 //res.send(data);
             }
         })
     }
     //[GET] /renttype/insert
-    insertView(req,res){
+    insertView(req, res) {
         res.render('renttype/insert');
 
     }
     //[GET] /renttype/search
-    searchName(req,res){
-        var nameRenttype = req.query.nameRenttype.toString(); 
-        renttype.find({name:nameRenttype},function(err,data){
-            res.render('renttype/searchRenttype',{list:data});
+    searchName(req, res) {
+        var nameRenttype = req.query.nameRenttype.toString();
+        renttype.find({ name: nameRenttype }, function (err, data) {
+            res.render('renttype/searchRenttype', { list: data });
         });
     }
     //[POST] /renttype/insert
-    insertModel(req,res){
+    insertModel(req, res) {
         var data = req.body;
         var dataRenttype = {
-            name : data.nameRenttype
+            name: data.name
         }
-        renttype.create(dataRenttype,function(err,data){
-            if(err)
+        renttype.create(dataRenttype, function (err) {
+            if (err)
                 res.send(err);
-            else{
-                res.redirect('/renttype');
+            else {
+                res.json("oke");
             }
         })
     }
     //[GET] /renttype/:id/update
-    updateView(req,res){
+    updateView(req, res) {
         var idRenttype = req.params.id;
-        res.send(idRenttype);
-        renttype.findOne({_id:idRenttype},function(err,data) {
-            if(err) 
+        renttype.findOne({ _id: idRenttype }, function (err, data) {
+            if (err)
                 res.send(err);
-            else{
-                res.render('renttype/update',{list:data});
+            else {
+                res.render('Renttype/update', { data: data });
             }
-            
+
         })
-      
+
 
     }
     //[PUT] /renttype/:id/update
-    updateModel(req,res){
+    updateModel(req, res) {
         var idRenttype = req.params.id;
         var dataBody = req.body;
         var data = {
-            name: dataBody.nameRenttype
+            name: dataBody.name
         }
-        renttype.updateOne({_id:idRenttype},data,function(err,data){
-            if(err)
+        renttype.updateOne({ _id: idRenttype }, data, function (err, data) {
+            if (err)
                 res.send(err);
-            else{
-                res.redirect('/renttype');
+            else {
+                res.json("oke");
             }
         })
-        
+
     }
     //[DELETE] /renttype/:id/delete
-    deleteModel(req,res){
-        var idRenttype = req.params.id;
-        renttype.deleteOne({_id:id},function(err,data){
-            if(err)
+    deleteModel(req, res) {
+        var id = req.params.id;
+        renttype.deleteOne({ _id: id }, function (err, data) {
+            if (err)
                 res.send(err);
-            else{
-                res.redirect('/renttype');
+            else {
+                res.json("oke");;
             }
         })
     }

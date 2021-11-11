@@ -177,9 +177,6 @@ class BuildingController {
     updateModel(req, res) {
         var id = req.params.id;
         var dataUpdate = req.body;
-        console.log(id);
-        console.log(dataUpdate);
-        res.json("oke");
         var dataBuilding = {
             "name": dataUpdate.name,
             "rentarea": dataUpdate.rentarea,

@@ -35,7 +35,34 @@
     <!-- Navigation-->
     <%-include ("../public/ejspub/header.ejs")%>
         <!-- Page Header-->
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <i class='fas fa-search'></i>
+                        </div>
+                    </div>
+                    <form id="formsearch">
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" placeholder="Search By Building Name">
+                            </div>
+                        </div>
+                    </form>
+                   
+                </div>
+            </form>
 
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default  btn-block" data-toggle="tooltip" 
+                    title="Insert" onclick="window.location.href='/building/insert'">
+                        <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <table class="table table-bordered">
                 <thead>
@@ -87,10 +114,10 @@
                                 <image src="<%=item.imagelink%>" width="300" height="200"></image>
                             </td>
                             <td>
-                                <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default" onclick="up(value)"
-                                    value=<%=item._id%>><i class="fas fa-user-edit"></i></button>
-                                <button type="button" data-toggle="modal" class="btn btn-default" 
-                                    data-target="#myModal" data-toggle="tooltip" title="Delete" >
+                                <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default"
+                                    onclick="up(value)" value=<%=item._id%>><i class="fas fa-user-edit"></i></button>
+                                <button id="xoa" type="button" data-toggle="modal" class="btn btn-default" data-target="#myModal"
+                                    data-toggle="tooltip" title="Delete" value="<%=item._id%>" onclick="chuyen(value)">
                                     <i class="fas fa-minus-circle"></i>
                                 </button>
                             </td>
@@ -119,27 +146,42 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button id="xoamodal" type="button" class="btn btn-danger" >OK</button>
+                        <button id="xoamodal" type="button" class="btn btn-danger">OK</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
                 </div>
             </div>
-
             <script>
-                function up(value){
+                function up(value) {
                     window.location.href = "/building/" + value + "/update";
                 }
-                $('#xoamodal').click(function(){
+                $('#xoamodal').click(function () {
                     $.ajax({
                         type: "delete",
-                        url: "/building/"+$('#update').val()+"/delete",
+                        url: "/building/" + $('#xoamodal').val() + "/delete",
                         dataType: "json",
                         success: function (response) {
                             location.reload();
                         },
-                        error:function(){
+                        error: function () {
                             alert("loi");
+                        }
+                    });
+                })
+                function chuyen(value){
+                    $("#xoamodal").val(value);
+                }
+                $("#formsearch").submit(function(e){
+                    e.preventDefault();
+                    var data = $("#formsearch").serialize();
+                    $.ajax({
+                        type: "get",
+                        url: "/building",
+                        data: data,
+                        dataType: "json",
+                        success: function (response) {
+                            
                         }
                     });
                 })

@@ -25,42 +25,8 @@
 </head>
 
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="index.html">Building</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./../index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="indexBuilding.html">Building</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                            href="./../Districit/indexDistricit.html">Districit</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                            href="./../Renttype/indexRenttype.html">Renttype</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Page Header-->
-    <header class="masthead" style="background-image: url('/assets/img/nha4.jpg')">
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>Nhóm TĐT</h1>
-                        <span class="subheading">Quản Lý Cho Thuê Nhà Đất</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <%-include ("../public/ejspub/header.ejs")%>
+    
     <div class="col-md-6 offset-md-3" style="background-color: #fff;margin-top: 25px;padding:20px;">
         <form id="formup">
             <div class="form-group">
@@ -143,7 +109,7 @@
                 <div class="form-group">
                     <button type="button" id="bntsup" class="btn btn-info" value="<%=data.building._id%>"><i class="fa fa-database"></i>
                         Submit</button>
-                    <a class="btn btn-secondary" href=""><i class="fa fa-list-alt"></i> View All</a>
+                    <a class="btn btn-secondary" onclick="window.location.href='/building'"><i class="fa fa-list-alt"></i> View All</a>
                 </div>
         </form>
     </div>
@@ -198,8 +164,6 @@
                 });
             })
         })
-       
-
     </script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

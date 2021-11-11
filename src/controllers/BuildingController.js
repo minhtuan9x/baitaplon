@@ -63,15 +63,7 @@ class BuildingController {
     //[GET] building/:id/update  
     updateView(req, res) {
         var id = req.params.id;
-<<<<<<< HEAD
-        //   var dataBuilding,dataDictrict
-        building.findOne({ _id: id }, function (err, dataBuilding) {
-            if (err)
-                res.send(err);
-            else {
-                district.find(function (err, dataDictrict) {
-                    renttype.find(function (err, dataRenttype) {
-=======
+
      //   var dataBuilding,dataDictrict
         building.findOne({ _id: id }, function (err, dataBuilding) {
             if (err)
@@ -80,26 +72,16 @@ class BuildingController {
             {
                 district.find(function(err,dataDictrict){
                     renttype.find(function(err,dataRenttype){
->>>>>>> 151fdbff0fbd917b5bfd579735ebc2a0a0b060a3
+
                         var Data = {
                             building: dataBuilding,
                             district: dataDictrict,
                             renttype: dataRenttype
-<<<<<<< HEAD
                         }
-                        console.log(Data);
                         res.render('Building/editBuilding', { data: Data });
                     })
 
                 })
-=======
-                    }
-                    res.send(Data.district[1].name);
-                   // res.render('building/editBuilding',{item: Data});
-                    })
-                   
-                }) 
->>>>>>> 151fdbff0fbd917b5bfd579735ebc2a0a0b060a3
             }
         })
         

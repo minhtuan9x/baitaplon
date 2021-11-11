@@ -11,26 +11,29 @@ class BuildingController {
                 renttype.find(function (err, rentypes) {
                     var results = [];
                     var dis;
-                    var rents = [];
                     data.forEach(item => {
+                        var rents = [];
                         distrcits.forEach(item2 => {
                             if (item2._id == item.districtid)
                                 dis = item2.name;
                         })
-                        rentypes.forEach(item3 => {
-                            item.renttypeids.forEach(item4 => {
-                                if (item3._id == item4)
+                        item.renttypeids.forEach(item4 => {
+                            rentypes.forEach(item3 => {
+                                if (item3._id == item4){
                                     rents.push(item3.name)
+                                }
+                                    
                             })
                         })
-                        var xuli = unique(rents)
+                        // var xuli = unique(rents)
+                        console.log(rents);
                         var dataBuilding = {
                             "_id": item._id,
                             "name": item.name,
                             "rentarea": item.rentarea,
                             "imagelink": item.imagelink,
                             "address": item.street + "-" + item.ward + "-" + dis,
-                            "renttypes": xuli,
+                            "renttypes": rents,
                             "note": item.note,
                             "managername": item.managername,
                             "managerphone": item.managerphone,
@@ -39,7 +42,7 @@ class BuildingController {
                         }
                         results.push(dataBuilding)
                     });
-                    //res.json(results);
+                    // res.json(results);
                     res.render('building/index', { listBuilding: results });
                 })
             })
@@ -78,11 +81,24 @@ class BuildingController {
     //[GET] building/:id/update  
     updateView(req, res) {
         var id = req.params.id;
-        building.findOne({ _id: id }, function (err, data) {
+        //   var dataBuilding,dataDictrict
+        building.findOne({ _id: id }, function (err, dataBuilding) {
             if (err)
                 res.send(err);
-            else
-                res.render('building/editBuilding', { item: data });
+            else {
+                district.find(function (err, dataDictrict) {
+                    renttype.find(function (err, dataRenttype) {
+                        var Data = {
+                            building: dataBuilding,
+                            district: dataDictrict,
+                            renttype: dataRenttype
+                        }
+                        console.log(Data);
+                        res.render('Building/editBuilding', { data: Data });
+                    })
+
+                })
+            }
         })
     }
     //[GET] /search/:nameBuilding
@@ -156,14 +172,14 @@ class BuildingController {
 
 
 }
-function unique(arr) {
-    var newArr = []
-    for (var i = 0; i < arr.length; i++) {
-        if (!newArr.includes(arr[i])) {
-            newArr.push(arr[i])
-        }
-    }
-    return newArr
-}
+// function unique(arr) {
+//     var newArr = []
+//     for (var i = 0; i < arr.length; i++) {
+//         if (!newArr.includes(arr[i])) {
+//             newArr.push(arr[i])
+//         }
+//     }
+//     return newArr
+// }
 
 module.exports = new BuildingController;

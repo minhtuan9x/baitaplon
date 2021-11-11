@@ -8,14 +8,14 @@ class districtController{
             if(err)
                 res.send(err);
             else{
-                res.render('district/indexDictrict',{list:data});
+                res.render('district/index',{data:data});
                 //res.send(data);
             }
         })
     }
     //[GET] /district/insert
     insertView(req,res){
-        res.render('district/addDistrict');
+        res.render('district/insert');
     }
     //[GET] /district/:id/update
     updateView(req,res){
@@ -24,8 +24,7 @@ class districtController{
             if(err)
                 res.send(err);
             else{
-             res.render('district/editDistrict',{item:data});
-              // res.send(data);
+             res.render('district/update',{data:data});
             }
         })
     }
@@ -40,38 +39,40 @@ class districtController{
     insertModel(req,res){
         var data = req.body;
         var dataDictrict = {
-            name : data.nameDistrict
+            name : data.name
         }
         district.create(dataDictrict,function(err,data){
             if(err)
                 res.send(err);
             else
-                res.redirect('/district');
+                 res.json("oke");
         })
 
     }
     //[PUT] /district/:id/update
     updateModel(req,res){
+        console.log("tuan");
         var idDistrict = req.params.id;
         var dataBody = req.body;
         var dataDistrict = {
-            name: dataBody.nameDistrict
+            name: dataBody.name
         }
         district.updateOne({_id:idDistrict},dataDistrict,function(err,data){
             if(err)
                 res.send(err);
             else
-                res.redirect('/district');    
+                 res.json("oke");  
         })
     }
     //[DELETE] /district/:id/delete
     deleteModel(req,res){
-        var idDictrict = req.params.id;
+        console.log("tuan");
+        var id = req.params.id;
         district.deleteOne({_id:id},function(err,data){
             if(err)
                 res.send(err);
             else{
-                res.redirect('/district');
+                 res.json("oke");
             }
         })
     }

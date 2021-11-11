@@ -19,14 +19,13 @@ class BuildingController {
                         })
                         item.renttypeids.forEach(item4 => {
                             rentypes.forEach(item3 => {
-                                if (item3._id == item4){
+                                if (item3._id == item4) {
                                     rents.push(item3.name)
                                 }
-                                    
+
                             })
                         })
                         // var xuli = unique(rents)
-                        console.log(rents);
                         var dataBuilding = {
                             "_id": item._id,
                             "name": item.name,
@@ -64,14 +63,13 @@ class BuildingController {
     updateView(req, res) {
         var id = req.params.id;
 
-     //   var dataBuilding,dataDictrict
+        //   var dataBuilding,dataDictrict
         building.findOne({ _id: id }, function (err, dataBuilding) {
             if (err)
                 res.send(err);
-            else
-            {
-                district.find(function(err,dataDictrict){
-                    renttype.find(function(err,dataRenttype){
+            else {
+                district.find(function (err, dataDictrict) {
+                    renttype.find(function (err, dataRenttype) {
 
                         var Data = {
                             building: dataBuilding,
@@ -84,8 +82,8 @@ class BuildingController {
                 })
             }
         })
-        
-       
+
+
     }
     //[GET] /search/:nameBuilding
     searchName(req, res) {
@@ -120,27 +118,30 @@ class BuildingController {
     }
     //[PUT] /building/:id/update
     updateModel(req, res) {
-        var id = req.param.id;
+        var id = req.params.id;
         var dataUpdate = req.body;
-        var dataBuilding = {
-            "name": dataUpdate.nameBuilding,
-            "rentarea": dataUpdate.rentareaBuilding,
-            "imagelink": dataUpdate.imagelinkBuilding,
-            "street": dataUpdate.streetBuilding,
-            "districtid": dataUpdate.districtidBuilding,
-            "ward": dataUpdate.wardBuilding,
-            "renttypeids": dataUpdate.renttypeidsBuilding,
-            "note": dataUpdate.noteBuilding,
-            "managername": dataUpdate.managernameBuilding,
-            "rentprice": dataUpdate.rentpriceBuilding,
-            "sellprice": dataUpdate.sellpriceBuilding,
-        }
-        building.updateOne({ _id: id }, dataBuilding, function (err, data) {
-            if (err)
-                res.send(err);
-            else
-                res.redirect('/building');
-        })
+        console.log(id);
+        console.log(dataUpdate);
+        res.json("oke");
+        // var dataBuilding = {
+        //     "name": dataUpdate.nameBuilding,
+        //     "rentarea": dataUpdate.rentareaBuilding,
+        //     "imagelink": dataUpdate.imagelinkBuilding,
+        //     "street": dataUpdate.streetBuilding,
+        //     "districtid": dataUpdate.districtidBuilding,
+        //     "ward": dataUpdate.wardBuilding,
+        //     "renttypeids": dataUpdate.renttypeidsBuilding,
+        //     "note": dataUpdate.noteBuilding,
+        //     "managername": dataUpdate.managernameBuilding,
+        //     "rentprice": dataUpdate.rentpriceBuilding,
+        //     "sellprice": dataUpdate.sellpriceBuilding,
+        // }
+        // building.updateOne({ _id: id }, dataBuilding, function (err, data) {
+        //     if (err)
+        //         res.send(err);
+        //     else
+        //         res.redirect('/building');
+        // })
     }
     //[DELETE] /building/:id/delete
     deleteModel(req, res) {

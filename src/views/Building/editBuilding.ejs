@@ -78,7 +78,7 @@
                     <div class="form-group col-md-4">
                         <div class="form-group">
                             <label>District</label>
-                            <select class="form-control" id="sel1" name="district">
+                            <select class="form-control" id="sel1" name="districtid">
                                 <%data.district.forEach(item=>{%>
                                     <option value="<%=item._id%>">
                                         <%=item.name%>
@@ -132,26 +132,16 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <%data.renttype.forEach((item)=>{%>
-                            <%data.renttype.forEach((item2)=>{%>
-                                <%if(item._id==item2._id){%>
-                                    <label class="checkbox-inline">
-                                        <input id="check" type="checkbox" checked value="<%=item._id%>">
-                                        <%=item.name%>
-                                    </label>
-                                    <%}else{%>
-                                    <!-- <label class="checkbox-inline">
-                                        <input id="check" type="checkbox" value="<%=item._id%>">
-                                        <%=item.name%>
-                                    </label> -->
-                                    <%}%>
-                            
-                            <%})%>
+                            <label class="checkbox-inline">
+                                <input id="check" type="checkbox" name="rentypes" value="<%=item._id%>">
+                                <%=item.name%>
+                            </label>
                             <%})%>
 
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="button" id="bntsup" class="btn btn-info"><i class="fa fa-database"></i>
+                    <button type="button" id="bntsup" class="btn btn-info" value="<%=data.building._id%>"><i class="fa fa-database"></i>
                         Submit</button>
                     <a class="btn btn-secondary" href=""><i class="fa fa-list-alt"></i> View All</a>
                 </div>
@@ -193,8 +183,22 @@
         </div>
     </footer>
     <script>
-
-
+        $(document).ready(function(){
+            $("#bntsup").click(function(e){
+                e.preventDefault();
+                var data = $("#formup").serialize();
+                $.ajax({
+                    type: "put",
+                    url: "/building/"+$("#bntsup").val()+"/update",
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.href="/building"
+                    }
+                });
+            })
+        })
+       
 
     </script>
     <!-- Bootstrap core JS-->

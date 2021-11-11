@@ -46,8 +46,10 @@
                             <%listBuilding.forEach(item=>{%>
                                 <tr>
                                     <td>
-                                        <image src="<%=item.imagelink%>" width="400" height="300"
-                                            style="border-radius: 10%;"></image>
+                                        <image type="button" src="<%=item.imagelink%>" width="400" height="300"
+                                            style="border-radius: 10%;" 
+                                            onclick="window.location.href='/building/?name=<%=item.name%>'"
+                                            ></image>
                                     </td>
                                 </tr>
                                 <tr>

@@ -51,7 +51,6 @@ class districtController{
     }
     //[PUT] /district/:id/update
     updateModel(req,res){
-        console.log("tuan");
         var idDistrict = req.params.id;
         var dataBody = req.body;
         var dataDistrict = {
@@ -66,7 +65,6 @@ class districtController{
     }
     //[DELETE] /district/:id/delete
     deleteModel(req,res){
-        console.log("tuan");
         var id = req.params.id;
         district.deleteOne({_id:id},function(err,data){
             if(err)

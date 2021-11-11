@@ -20,14 +20,12 @@ class districtController{
     //[GET] /district/:id/update
     updateView(req,res){
         var idDistrict = req.params.id;
-        var dataDistrict = {
-
-        }
         district.findById(idDistrict,function(err,data){
             if(err)
                 res.send(err);
             else{
-                res.render('district/editDistrict',{item:data});
+             res.render('district/editDistrict',{item:data});
+              // res.send(data);
             }
         })
     }

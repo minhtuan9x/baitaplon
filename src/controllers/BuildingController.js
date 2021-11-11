@@ -53,17 +53,6 @@ class BuildingController {
     insertView(req, res) {
         res.render('building/addBuilding')
     }
-    //[GET] building/:id/update  
-    updateView(req, res) {
-        var id = req.params.id;
-        building.findOne({ _id: id }, function (err, data) {
-            if (err)
-                res.send(err);
-            else
-                //res.render('/editBuilding',{item : data});
-                res.send(data);
-        })
-    }
     //[GET] /search
     searchName(req, res) {
         var nameBuilding = req.query.nameBuilding.toString();
@@ -71,16 +60,10 @@ class BuildingController {
             res.render('buidling/searchBuilding', { list: data });
         });
     }
-
-    //[GET] /building  
-
-    //[GET] buidling/insert  
-    insertView(req, res) {
-        res.render('building/addBuilding')
-    }
     //[GET] building/:id/update  
     updateView(req, res) {
         var id = req.params.id;
+<<<<<<< HEAD
         //   var dataBuilding,dataDictrict
         building.findOne({ _id: id }, function (err, dataBuilding) {
             if (err)
@@ -88,18 +71,39 @@ class BuildingController {
             else {
                 district.find(function (err, dataDictrict) {
                     renttype.find(function (err, dataRenttype) {
+=======
+     //   var dataBuilding,dataDictrict
+        building.findOne({ _id: id }, function (err, dataBuilding) {
+            if (err)
+                res.send(err);
+            else
+            {
+                district.find(function(err,dataDictrict){
+                    renttype.find(function(err,dataRenttype){
+>>>>>>> 151fdbff0fbd917b5bfd579735ebc2a0a0b060a3
                         var Data = {
                             building: dataBuilding,
                             district: dataDictrict,
                             renttype: dataRenttype
+<<<<<<< HEAD
                         }
                         console.log(Data);
                         res.render('Building/editBuilding', { data: Data });
                     })
 
                 })
+=======
+                    }
+                    res.send(Data.district[1].name);
+                   // res.render('building/editBuilding',{item: Data});
+                    })
+                   
+                }) 
+>>>>>>> 151fdbff0fbd917b5bfd579735ebc2a0a0b060a3
             }
         })
+        
+       
     }
     //[GET] /search/:nameBuilding
     searchName(req, res) {

@@ -1,0 +1,84 @@
+<%-include ("../public/ejspub/header.ejs")%>
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default  btn-block" data-toggle="tooltip" title="Insert"
+                    onclick="window.location.href='/district/insert'">
+                    <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%data.forEach(item=>{%>
+                    <tr>
+                        <td>
+                            <%=item.name%>
+                        </td>
+                        <td>
+                            <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default"
+                                onclick="up(value)" value=<%=item._id%>><i class="fas fa-user-edit"></i></button>
+                            <button id="xoa" type="button" data-toggle="modal" class="btn btn-default" data-target="#myModal"
+                                data-toggle="tooltip" title="Delete" value="<%=item._id%>" onclick="chuyen(value)">
+                                <i class="fas fa-minus-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <% })%>
+            </tbody>
+        </table>
+    </div>
+    <%-include ("../public/ejspub/footer.ejs")%>
+     <!-- The Modal -->
+     <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you want detele it ??
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="xoamodal" type="button" class="btn btn-danger">OK</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function up(value) {
+            window.location.href = "/district/" + value + "/update";
+        }
+        $('#xoamodal').click(function () {
+            $.ajax({
+                type: "delete",
+                url: "/district/" + $('#xoamodal').val() + "/delete",
+                dataType: "json",
+                success: function (response) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("loi");
+                }
+            });
+        })
+        function chuyen(value) {
+            $("#xoamodal").val(value);
+        }
+
+
+    </script>

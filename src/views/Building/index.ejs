@@ -7,28 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Web Quản Lý Cho Thuê Nhà Đất</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
-        rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet" />
-    <link href="css/cssBuilding/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/string-strip-html/dist/string-strip-html.umd.js"></script>
-
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -46,19 +25,20 @@
                     <form id="formsearch">
                         <div class="col-md-11">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name" placeholder="Search By Building Name">
+                                <input type="text" class="form-control" name="name"
+                                    placeholder="Search By Building Name">
                             </div>
                         </div>
                     </form>
-                   
+
                 </div>
             </form>
 
 
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-default  btn-block" data-toggle="tooltip" 
-                    title="Insert" onclick="window.location.href='/building/insert'">
+                    <button type="button" class="btn btn-default  btn-block" data-toggle="tooltip" title="Insert"
+                        onclick="window.location.href='/building/insert'">
                         <i class="fa fa-plus"></i></button>
                 </div>
             </div>
@@ -116,8 +96,9 @@
                             <td>
                                 <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default"
                                     onclick="up(value)" value=<%=item._id%>><i class="fas fa-user-edit"></i></button>
-                                <button id="xoa" type="button" data-toggle="modal" class="btn btn-default" data-target="#myModal"
-                                    data-toggle="tooltip" title="Delete" value="<%=item._id%>" onclick="chuyen(value)">
+                                <button id="xoa" type="button" data-toggle="modal" class="btn btn-default"
+                                    data-target="#myModal" data-toggle="tooltip" title="Delete" value="<%=item._id%>"
+                                    onclick="chuyen(value)">
                                     <i class="fas fa-minus-circle"></i>
                                 </button>
                             </td>
@@ -152,6 +133,8 @@
 
                 </div>
             </div>
+        </div>
+        <%-include ("../public/ejspub/footer.ejs")%>
             <script>
                 function up(value) {
                     window.location.href = "/building/" + value + "/update";
@@ -169,10 +152,10 @@
                         }
                     });
                 })
-                function chuyen(value){
+                function chuyen(value) {
                     $("#xoamodal").val(value);
                 }
-                $("#formsearch").submit(function(e){
+                $("#formsearch").submit(function (e) {
                     e.preventDefault();
                     var data = $("#formsearch").serialize();
                     $.ajax({
@@ -181,16 +164,12 @@
                         data: data,
                         dataType: "json",
                         success: function (response) {
-                            
+
                         }
                     });
                 })
 
             </script>
-
-
-            <!-- Core theme JS-->
-            <script src="/js/scripts.js"></script>
 
 </body>
 

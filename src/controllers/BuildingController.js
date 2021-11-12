@@ -5,8 +5,8 @@ const renttype = require('../models/renttype');
 class BuildingController {
     //[GET] /building  
     index(req, res) {
-        if (req.query.name != "") {
-        building.find({name:req.query.name},function (err, data) {
+        if (req.query.name != "" && req.query.name != null && req.query.name != undefined) {
+            building.find({ name: req.query.name }, function (err, data) {
                 if (err) throw err
                 district.find(function (err, distrcits) {
                     renttype.find(function (err, rentypes) {

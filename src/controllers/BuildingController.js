@@ -6,7 +6,7 @@ class BuildingController {
     //[GET] /building  
     index(req, res) {
         if (req.query.name != "" && req.query.name != null && req.query.name != undefined) {
-            building.find({ name: req.query.name }, function (err, data) {
+            building.find({ name:  new RegExp(req.query.name, 'i') }, function (err, data) {
                 if (err) throw err
                 district.find(function (err, distrcits) {
                     renttype.find(function (err, rentypes) {

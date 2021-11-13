@@ -5,93 +5,33 @@ const renttype = require('../models/renttype');
 class BuildingController {
     //[GET] /building  
     index(req, res) {
-        if (req.query.name != "" && req.query.name != null && req.query.name != undefined) {
-            building.find({ name:  new RegExp(req.query.name, 'i') }, function (err, data) {
-                if (err) throw err
-                district.find(function (err, distrcits) {
-                    renttype.find(function (err, rentypes) {
-                        var results = [];
-                        var dis;
-                        data.forEach(item => {
-                            var rents = [];
-                            distrcits.forEach(item2 => {
-                                if (item2._id == item.districtid)
-                                    dis = item2.name;
+        var nameInput = new RegExp(req.query.name, 'i');
+        building.find({ name: nameInput }, function (err, buildings) {
+            if (err) throw err
+            district.find(function (err, distrcits) {
+                renttype.find(function (err, rentypes) {
+                    var results = [];
+                    var dis;
+                    buildings.forEach(item => {
+                        var rents = [];
+                        distrcits.forEach(item2 => {
+                            if (item2._id == item.districtid)
+                                dis = item2.name;
+                        })
+                        item.renttypeids.forEach(item4 => {
+                            rentypes.forEach(item3 => {
+                                if (item3._id == item4) {
+                                    rents.push(item3.name)
+                                }
                             })
-                            item.renttypeids.forEach(item4 => {
-                                rentypes.forEach(item3 => {
-                                    if (item3._id == item4) {
-                                        rents.push(item3.name)
-                                    }
-
-                                })
-                            })
-                            // var xuli = unique(rents)
-                            var dataBuilding = {
-                                "_id": item._id,
-                                "name": item.name,
-                                "rentarea": item.rentarea,
-                                "imagelink": item.imagelink,
-                                "address": item.street + "-" + item.ward + "-" + dis,
-                                "renttypes": rents,
-                                "note": item.note,
-                                "managername": item.managername,
-                                "managerphone": item.managerphone,
-                                "rentprice": item.rentprice,
-                                "sellprice": item.sellprice
-                            }
-                            results.push(dataBuilding)
-                        });
-                        // res.json(results);
-                        res.render('building/index', { listBuilding: results });
-                    })
+                        })
+                        var dataBuilding = toBuildingRespone(item, dis, rents);
+                        results.push(dataBuilding)
+                    });
+                    res.render('building/index', { listBuilding: results, namesearch: req.query.name });
                 })
-            })//
-        } else {
-            building.find(function (err, data) {
-                if (err) throw err
-                district.find(function (err, distrcits) {
-                    renttype.find(function (err, rentypes) {
-                        var results = [];
-                        var dis;
-                        data.forEach(item => {
-                            var rents = [];
-                            distrcits.forEach(item2 => {
-                                if (item2._id == item.districtid)
-                                    dis = item2.name;
-                            })
-                            item.renttypeids.forEach(item4 => {
-                                rentypes.forEach(item3 => {
-                                    if (item3._id == item4) {
-                                        rents.push(item3.name)
-                                    }
-
-                                })
-                            })
-                            // var xuli = unique(rents)
-                            var dataBuilding = {
-                                "_id": item._id,
-                                "name": item.name,
-                                "rentarea": item.rentarea,
-                                "imagelink": item.imagelink,
-                                "address": item.street + "-" + item.ward + "-" + dis,
-                                "renttypes": rents,
-                                "note": item.note,
-                                "managername": item.managername,
-                                "managerphone": item.managerphone,
-                                "rentprice": item.rentprice,
-                                "sellprice": item.sellprice
-                            }
-                            results.push(dataBuilding)
-                        });
-                        // res.json(results);
-                        res.render('building/index', { listBuilding: results });
-                    })
-                })
-            })//
-        }
-
-
+            })
+        })//
     }
     //[GET] buidling/insert  
     insertView(req, res) {
@@ -149,20 +89,7 @@ class BuildingController {
     //[POST] /building/insert
     insertModel(req, res) {
         var dataInsert = req.body;
-        var dataBuilding = {
-            "name": dataInsert.name,
-            "rentarea": dataInsert.rentarea,
-            "imagelink": dataInsert.imagelink,
-            "street": dataInsert.street,
-            "districtid": dataInsert.districtid,
-            "ward": dataInsert.ward,
-            "renttypeids": dataInsert.rentypes,
-            "note": dataInsert.note,
-            "managername": dataInsert.managername,
-            "managerphone": dataInsert.managerphone,
-            "rentprice": dataInsert.rentprice,
-            "sellprice": dataInsert.sellprice,
-        }
+        var dataBuilding = toBuildingRequest(dataInsert);
         building.create(dataBuilding, function (err, result) {
             if (err)
                 res.send("INSERT FAILURE");
@@ -177,20 +104,7 @@ class BuildingController {
     updateModel(req, res) {
         var id = req.params.id;
         var dataUpdate = req.body;
-        var dataBuilding = {
-            "name": dataUpdate.name,
-            "rentarea": dataUpdate.rentarea,
-            "imagelink": dataUpdate.imagelink,
-            "street": dataUpdate.street,
-            "districtid": dataUpdate.districtid,
-            "ward": dataUpdate.ward,
-            "renttypeids": dataUpdate.rentypes,
-            "note": dataUpdate.note,
-            "managername": dataUpdate.managername,
-            "managerphone": dataUpdate.managerphone,
-            "rentprice": dataUpdate.rentprice,
-            "sellprice": dataUpdate.sellprice,
-        }
+        var dataBuilding = toBuildingRequest(dataUpdate);
         building.updateOne({ _id: id }, dataBuilding, function (err, data) {
             if (err)
                 res.send(err);
@@ -210,6 +124,39 @@ class BuildingController {
         })
 
     }
+}
+function toBuildingRespone(item, dis, rents) {
+    var result = {
+        "_id": item._id,
+        "name": item.name,
+        "rentarea": item.rentarea,
+        "imagelink": item.imagelink,
+        "address": item.street + "-" + item.ward + "-" + dis,
+        "renttypes": rents,
+        "note": item.note,
+        "managername": item.managername,
+        "managerphone": item.managerphone,
+        "rentprice": item.rentprice,
+        "sellprice": item.sellprice
+    }
+    return result;
+}
+function toBuildingRequest(data){
+    var result = {
+        "name": data.name,
+        "rentarea": data.rentarea,
+        "imagelink": data.imagelink,
+        "street": data.street,
+        "districtid": data.districtid,
+        "ward": data.ward,
+        "renttypeids": data.rentypes,
+        "note": data.note,
+        "managername": data.managername,
+        "managerphone": data.managerphone,
+        "rentprice": data.rentprice,
+        "sellprice": data.sellprice,
+    }
+    return result;
 }
 
 module.exports = new BuildingController;

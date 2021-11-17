@@ -32,9 +32,17 @@
                             <label>District</label>
                             <select class="form-control" id="sel1" name="districtid">
                                 <%data.district.forEach(item=>{%>
-                                    <option value="<%=item._id%>">
-                                        <%=item.name%>
-                                    </option>
+                                <%    {      %>
+                                <%        if(item._id==data.building.districtid){             %>
+                                            <option selected value="<%=item._id%>">    %>
+                                                <%=item.name%>             
+                                            </option> 
+                                <%        }else{                                       %>
+                                            <option value="<%=item._id%>">
+                                                <%=item.name%>
+                                            </option>
+                                <%     }   %>
+                                <%     }    %>
                                     <%})%>
 
                             </select>
@@ -85,7 +93,7 @@
                     <div class="form-group col-md-12">
                         <%data.renttype.forEach((item)=>{%>
                             <label class="checkbox-inline">
-                                <input id="check" type="checkbox" name="rentypes" value="<%=item._id%>">
+                                <input id="check" type="checkbox" name="rentypes" <%=item.checked%> value="<%=item._id%>">
                                 <%=item.name%>
                             </label>
                             <%})%>

@@ -64,11 +64,33 @@ class BuildingController {
             else {
                 district.find(function (err, dataDictrict) {
                     renttype.find(function (err, dataRenttype) {
-
+                        var listRentTypes = [];
+                        dataRenttype.forEach(item=>{
+                            var flag = 0;
+                            dataBuilding.renttypeids.forEach(item2=>{
+                                if(item._id == item2){
+                                   flag++;
+                                }
+                            })
+                            if(flag>0){
+                                listRentTypes.push({
+                                    "_id":item._id,
+                                    "name":item.name,
+                                    "checked":"checked"
+                                })
+                            }else{
+                                listRentTypes.push({
+                                    "_id":item._id,
+                                    "name":item.name,
+                                    "checked":""
+                                })
+                            }
+                           
+                        })
                         var Data = {
                             building: dataBuilding,
                             district: dataDictrict,
-                            renttype: dataRenttype
+                            renttype: listRentTypes
                         }
                         res.render('Building/editBuilding', { data: Data });
                     })

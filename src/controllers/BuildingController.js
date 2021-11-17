@@ -65,31 +65,47 @@ class BuildingController {
                 district.find(function (err, dataDictrict) {
                     renttype.find(function (err, dataRenttype) {
                         var listRentTypes = [];
-                        dataRenttype.forEach(item=>{
+                        dataRenttype.forEach(item => {
                             var flag = 0;
-                            dataBuilding.renttypeids.forEach(item2=>{
-                                if(item._id == item2){
-                                   flag++;
+                            dataBuilding.renttypeids.forEach(item2 => {
+                                if (item._id == item2) {
+                                    flag++;
                                 }
                             })
-                            if(flag>0){
+                            if (flag > 0) {
                                 listRentTypes.push({
-                                    "_id":item._id,
-                                    "name":item.name,
-                                    "checked":"checked"
+                                    "_id": item._id,
+                                    "name": item.name,
+                                    "checked": "checked"
                                 })
-                            }else{
+                            } else {
                                 listRentTypes.push({
-                                    "_id":item._id,
-                                    "name":item.name,
-                                    "checked":""
+                                    "_id": item._id,
+                                    "name": item.name,
+                                    "checked": ""
                                 })
                             }
-                           
+                        })
+                        var listDistricts = [];
+                        dataDictrict.forEach(item=>{
+                            if(item._id==dataBuilding.districtid){
+                                listDistricts.push({
+                                    "_id": item._id,
+                                    "name": item.name,
+                                    "selected": "selected"
+                                })
+                            }else{
+                                listDistricts.push({
+                                    "_id": item._id,
+                                    "name": item.name,
+                                    "selected": ""
+                                })
+                            }
+                            
                         })
                         var Data = {
                             building: dataBuilding,
-                            district: dataDictrict,
+                            district: listDistricts,
                             renttype: listRentTypes
                         }
                         res.render('Building/editBuilding', { data: Data });
@@ -163,7 +179,7 @@ function toBuildingRespone(item, dis, rents) {
     }
     return result;
 }
-function toBuildingRequest(data){
+function toBuildingRequest(data) {
     var result = {
         "name": data.name,
         "rentarea": data.rentarea,

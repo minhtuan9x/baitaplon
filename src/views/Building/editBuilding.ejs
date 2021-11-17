@@ -12,123 +12,120 @@
 
 <body>
     <%-include ("../public/ejspub/header.ejs")%>
-    
-    <div class="col-md-6 offset-md-3" style="background-color: #fff;margin-top: 25px;padding:20px;">
-        <form id="formup">
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Building Name</label>
-                        <input type="text" class="form-control" name="name" value="<%=data.building.name%>">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Rent Area</label>
-                        <input type="text" class="form-control" name="rentarea" value="<%=data.building.rentarea%>">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <div class="form-group">
-                            <label>District</label>
-                            <select class="form-control" id="sel1" name="districtid">
-                                <%data.district.forEach(item=>{%>
-                                <%    {      %>
-                                <%        if(item._id==data.building.districtid){             %>
-                                            <option selected value="<%=item._id%>">    %>
-                                                <%=item.name%>             
-                                            </option> 
-                                <%        }else{                                       %>
-                                            <option value="<%=item._id%>">
-                                                <%=item.name%>
-                                            </option>
-                                <%     }   %>
-                                <%     }    %>
-                                    <%})%>
 
-                            </select>
+        <div class="col-md-6 offset-md-3" style="background-color: #fff;margin-top: 25px;padding:20px;">
+            <form id="formup">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Building Name</label>
+                            <input type="text" class="form-control" name="name" value="<%=data.building.name%>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Rent Area</label>
+                            <input type="text" class="form-control" name="rentarea" value="<%=data.building.rentarea%>">
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>Ward</label>
-                        <input type="text" class="form-control" name="ward" value="<%=data.building.ward%>">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Street</label>
-                        <input type="text" class="form-control" name="street" value="<%=data.building.street%>">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Manager Phone</label>
-                        <input type="text" class="form-control" name="managerphone"
-                            value="<%=data.building.managerphone%>">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Manager Name</label>
-                        <input type="text" class="form-control" name="managername"
-                            value="<%=data.building.managername%>">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Rentprice</label>
-                        <input type="text" class="form-control" name="rentprice" value="<%=data.building.rentprice%>">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Sellprice</label>
-                        <input type="text" class="form-control" name="sellprice" value="<%=data.building.sellprice%>">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Image Link</label>
-                        <input type="text" class="form-control" name="imagelink" value="<%=data.building.imagelink%>">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Note</label>
-                        <input type="text" class="form-control" name="note" value="<%=data.building.note%>">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <%data.renttype.forEach((item)=>{%>
-                            <label class="checkbox-inline">
-                                <input id="check" type="checkbox" name="rentypes" <%=item.checked%> value="<%=item._id%>">
-                                <%=item.name%>
-                            </label>
-                            <%})%>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <div class="form-group">
+                                <label>District</label>
+                                <select class="form-control" id="sel1" name="districtid">
+                                    <%data.district.forEach(item=>{%>
+                                        <option <%=item.selected%> value="<%=item._id%>"> %>
+                                                <%=item.name%>
+                                        </option>
+                                        <%})%>
 
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ward</label>
+                            <input type="text" class="form-control" name="ward" value="<%=data.building.ward%>">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Street</label>
+                            <input type="text" class="form-control" name="street" value="<%=data.building.street%>">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button type="button" id="bntsup" class="btn btn-info" value="<%=data.building._id%>"><i class="fa fa-database"></i>
-                        Submit</button>
-                    <a class="btn btn-secondary" onclick="window.location.href='/building'"><i class="fa fa-list-alt"></i> View All</a>
-                </div>
-        </form>
-    </div>
-    <%-include ("../public/ejspub/footer.ejs")%>
-    <script>
-        $(document).ready(function(){
-            $("#bntsup").click(function(e){
-                e.preventDefault();
-                var data = $("#formup").serialize();
-                $.ajax({
-                    type: "put",
-                    url: "/building/"+$("#bntsup").val()+"/update",
-                    data: data,
-                    dataType: "json",
-                    success: function (response) {
-                        window.location.href="/building"
-                    }
-                });
-            })
-        })
-    </script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="/js/scripts.js"></script>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Manager Phone</label>
+                            <input type="text" class="form-control" name="managerphone"
+                                value="<%=data.building.managerphone%>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Manager Name</label>
+                            <input type="text" class="form-control" name="managername"
+                                value="<%=data.building.managername%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Rentprice</label>
+                            <input type="text" class="form-control" name="rentprice"
+                                value="<%=data.building.rentprice%>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Sellprice</label>
+                            <input type="text" class="form-control" name="sellprice"
+                                value="<%=data.building.sellprice%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Image Link</label>
+                            <input type="text" class="form-control" name="imagelink"
+                                value="<%=data.building.imagelink%>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Note</label>
+                            <input type="text" class="form-control" name="note" value="<%=data.building.note%>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <%data.renttype.forEach((item)=>{%>
+                                <label class="checkbox-inline">
+                                    <input id="check" type="checkbox" name="rentypes" <%=item.checked%>
+                                    value="<%=item._id%>">
+                                        <%=item.name%>
+                                </label>
+                                <%})%>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="bntsup" class="btn btn-info" value="<%=data.building._id%>"><i
+                                class="fa fa-database"></i>
+                            Submit</button>
+                        <a class="btn btn-secondary" onclick="window.location.href='/building'"><i
+                                class="fa fa-list-alt"></i> View All</a>
+                    </div>
+            </form>
+        </div>
+        <%-include ("../public/ejspub/footer.ejs")%>
+            <script>
+                $(document).ready(function () {
+                    $("#bntsup").click(function (e) {
+                        e.preventDefault();
+                        var data = $("#formup").serialize();
+                        $.ajax({
+                            type: "put",
+                            url: "/building/" + $("#bntsup").val() + "/update",
+                            data: data,
+                            dataType: "json",
+                            success: function (response) {
+                                window.location.href = "/building"
+                            }
+                        });
+                    })
+                })
+            </script>
+            <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Core theme JS-->
+            <script src="/js/scripts.js"></script>
 </body>
 
 </html>

@@ -96,7 +96,7 @@ class BuildingController {
                 res.send(err)
             else {
                 var listIDcustomer = dataBuid.customerids;
-                customer.create(dataCustomer,function (err, dataCus) {
+                customer.create(dataCustomer, function (err, dataCus) {
                     if (err)
                         res.send(err);
                     else {
@@ -105,12 +105,12 @@ class BuildingController {
                             if (err)
                                 res.send(err)
                             else
-                                 res.json("oke");
+                                res.json("oke");
                         })
                     }
-                    
+
                 })
-                
+
                 res.send(listIDcustomer);
             }
         })

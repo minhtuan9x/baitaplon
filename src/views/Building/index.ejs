@@ -122,7 +122,7 @@
                                     <%= item.customerids.length %>
                                 </button>
                                 <button id="comment" type="button" data-toggle="modal" class="btn btn-default"
-                                    data-target="#myModal2" data-toggle="tooltip" title="Contact" value="<%=item._id%>"
+                                    data-target="#myModal3" data-toggle="tooltip" title="Contact" value="<%=item._id%>"
                                     onclick="loadCuss(value)">
                                     <i class="fas fa-comment-dots"></i>
                                     <%= item.customerids.length %>
@@ -182,6 +182,48 @@
                                             <th>Email</th>
                                             <th>Type</th>
                                             <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="showcus">
+
+                                    </tbody>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <!-- <button id="xoamodal" type="button" class="btn btn-danger">OK</button> -->
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        
+        <!-- The Modal Comment -->
+        <div class="modal fade" id="myModal3">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">List Contact</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Rate</th>
+                                            <th>Comment</th>
                                         </tr>
                                     </thead>
                                     <tbody id="showcus">

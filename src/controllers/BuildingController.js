@@ -77,50 +77,50 @@ class BuildingController {
             })
         })//
     }
-//=====================================================================================================================
+    //=====================================================================================================================
     //[POST] /buidling/:idBuilding/customer
-    insertCustomer(req,res){
+    insertCustomer(req, res) {
         var idBuilding = req.params.id;
         var dataInput = req.body;
         var dataCustomer = {
-            "name":dataInput.name,
-            "phone":dataInput.phone,
-            "email":dataInput.email,
-            "type":dataInput.type,
-            "status":dataInput.status
+            "name": dataInput.name,
+            "phone": dataInput.phone,
+            "email": dataInput.email,
+            "type": dataInput.type,
+            "status": dataInput.status
         }
-       
-       
-        building.findById(idBuilding,function(err,dataBuid){
-            if(err)
+
+
+        building.findById(idBuilding, function (err, dataBuid) {
+            if (err)
                 res.send(err)
-            else{
-               var listIDcustomer = dataBuid.customerids;
-                customer.create(dataCustomer,function(err,dataCus){
-                   if(err) 
+            else {
+                var listIDcustomer = dataBuid.customerids;
+                customer.create(dataCustomer, function (err, dataCus) {
+                    if (err)
                         res.send(err);
-                    else{
+                    else {
                         listIDcustomer.push(dataCus._id.toString());
-                        
+
                     }
                 })
-                building.findByIdAndUpdate(idBuilding,{customerids : listIDcustomer},function(err,result){
-                    if(err)
+                building.findByIdAndUpdate(idBuilding, { customerids: listIDcustomer }, function (err, result) {
+                    if (err)
                         res.send(err)
                     else
-                        res.send(result)
+                         res.json("oke");
                 })
             }
         })
-        
-        
+
+
 
 
     }
-//=====================================================================================================================
+    //=====================================================================================================================
     //[PUT] /building/:id/customer
 
-//=====================================================================================================================
+    //=====================================================================================================================
     // [GET] /building/:id/customer  
     getCusByBuildingID(req, res) {
         building.findById(req.params.id, function (err, data) {
@@ -296,14 +296,14 @@ class BuildingController {
                                 rateall += parseInt(item3.rate);
                                 count++;
                             })
-                            var rank = rateall/count;
-                            building.findByIdAndUpdate(id,{rank:rank},function(err,kq){
+                            var rank = rateall / count;
+                            building.findByIdAndUpdate(id, { rank: rank }, function (err, kq) {
                                 res.json(rel2);
                             })
                         })
                     })
 
-                    
+
                 })
             })
         })

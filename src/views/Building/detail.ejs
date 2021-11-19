@@ -266,7 +266,7 @@
                         e.preventDefault();
                         $.ajax({
                             type: "post",
-                            url: "/",
+                            url: "/building/" + $("#tuan1").val() + "/customer",
                             data: $("#formnhap").serialize(),
                             dataType: "json",
                             success: function (response) {

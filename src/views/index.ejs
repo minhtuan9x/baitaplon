@@ -67,20 +67,31 @@
                         <div class="col-md-12" style="text-align: center;">
                             <div class="pagination" id="page" >
                                 <%if(sum<=3){%>
-                                    <%if(page==1){%>
-                                        <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
-                                        <a type="button" onclick="window.location.href='?page=2'">2 </a>
-                                        <a type="button" onclick="window.location.href='?page=2'">3 </a>
-                                    <%}%>
-                                    <%if(page==2){%>
-                                        <a type="button" onclick="window.location.href='?page=1'">1 </a>
-                                        <a id="clp" type="button" onclick="window.location.href='?page=2'">2 </a>
-                                        <a type="button" onclick="window.location.href='?page=1'">3 </a>
-                                    <%}%>
-                                    <%if(page==3){%>
-                                        <a type="button" onclick="window.location.href='?page=1'">1 </a>
-                                        <a type="button" onclick="window.location.href='?page=2'">2 </a>
-                                        <a id="clp" type="button" onclick="window.location.href='?page=2'">3 </a>
+                                    <%if(sum<=2){%>
+                                        <%if(page==1){%>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a type="button" onclick="window.location.href='?page=2'">2 </a>
+                                        <%}%>
+                                        <%if(page==2){%>
+                                            <a type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=2'">2 </a>
+                                        <%}%>
+                                    <%}else{%>
+                                        <%if(page==1){%>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a type="button" onclick="window.location.href='?page=2'">2 </a>
+                                            <a type="button" onclick="window.location.href='?page=3'">3 </a>
+                                        <%}%>
+                                        <%if(page==2){%>
+                                            <a type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=2'">2 </a>
+                                            <a type="button" onclick="window.location.href='?page=3'">3 </a>
+                                        <%}%>
+                                        <%if(page==3){%>
+                                            <a type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a type="button" onclick="window.location.href='?page=2'">2 </a>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=3'">3 </a>
+                                        <%}%>
                                     <%}%>
                                     
                                 <%}else{%>

@@ -10,6 +10,8 @@ class HomePageController {
         var perPage = 2;
         var start = (page -1) * perPage;
         var end = page * perPage ;
+        var sum = 0;
+        var residual = 0;
         //=========================================================
         var nameInput = new RegExp(req.query.name, 'i');
         building.find({ name: nameInput }, function (err, data) {
@@ -49,13 +51,33 @@ class HomePageController {
                         }
                         results.push(dataBuilding)
                     });
-                    // res.json(results);
-                    res.render('index', { listBuilding: results.slice(start,end)});
+                    sum = Math.floor(data.length / (perPage))
+                    residual = data.length % (perPage)
+                   // res.send("abc"  + data.length/perPage);
+                   if(residual > 0 )
+                    sum = sum +1 ;
+                   //res.send(sum);
+                    
+                    res.render('index', {listBuilding: results.slice(start,end),SumPage : sum});
                 })
             })
         })
-
+        
+        
+       
+       
     }
-
+    
+}
+function SumPage(ItemPerPage) {
+    var sum = 0;
+    var residual = 0;
+    building.find(function(err,data){
+        sum = data.length / parseInt(ItemPerPage)
+        residual = data.length % parseInt(ItemPerPage)
+    }) 
+    if(residual > 0 )
+        sum = sum +1 ;
+    return sum;      
 }
 module.exports = new HomePageController;

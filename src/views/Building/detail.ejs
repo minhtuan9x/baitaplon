@@ -15,9 +15,9 @@
                             <tr>
                                 <td>
                                     <h5 style="text-align: center;color: chocolate;"><b>Contacted customer</b></h6>
-                                    <ul class="list-group" style="text-align: center;">
+                                    <ul class="list-group">
                                         <% listCustomer.forEach(item2=>{%>
-                                            <li class="list-group-item"><%= item2.name %> - <%= item2.status %> </li>
+                                            <li class="list-group-item"><%= item2.name %> - <%= item2.type %> - <%= item2.status %> </li>
                                         <%}) %> 
                                     </ul>
                                 </td>
@@ -137,13 +137,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" value="BUY" name="status">Buy</label>
+                                        <label><input type="radio" value="BUY" name="type">Buy</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" value="RENT" name="status">Rent</label>
+                                        <label><input type="radio" value="RENT" name="type">Rent</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" value="NOTHING" name="status">Nothing</label>
+                                        <label><input type="radio" value="NOTHING" name="type">Nothing</label>
                                     </div>
                                 </div>
                             </div>

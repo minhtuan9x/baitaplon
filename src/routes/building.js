@@ -5,8 +5,10 @@ const router = express.Router();
 
 //[GET] /building  
 router.get('/',building.index);
-//[GET] /building  
+//[GET] /building/customer  
 router.get('/customer',building.detailview);
+//[GET] /building/:id/customer  
+router.get('/:id/customer',building.getCusByBuildingID);
 //[GET] buidling/insert  
 router.get('/insert',building.insertView);
 //[GET] building/:id/update  

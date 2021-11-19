@@ -29,6 +29,7 @@ class BuildingController {
                         var dataBuilding = toBuildingRespone(item, dis, rents);
                         results.push(dataBuilding)
                     });
+
                     res.render('building/index', { listBuilding: results, namesearch: req.query.name });
                 })
             })
@@ -69,11 +70,27 @@ class BuildingController {
                             var dataBuilding = toBuildingRespone(item, dis, rents);
                             results.push(dataBuilding)
                         });
-                        res.render('building/detail', { listBuilding: results ,listCustomer : cuss});
+                        res.render('building/detail', { listBuilding: results, listCustomer: cuss });
                     })
                 })
             })
         })//
+    }
+
+    // [GET] /building/:id/customer  
+    getCusByBuildingID(req, res) {
+        building.findById(req.params.id, function (err, data) {
+            customer.find(function (err, data2) {
+                var cuss = [];
+                data2.forEach(item => {
+                    data.customerids.forEach(item2 => {
+                        if (item._id.toString() == item2)
+                            cuss.push(item);
+                    })
+                })
+                res.json(cuss)
+            })
+        })
     }
     //[GET] buidling/insert  
     insertView(req, res) {
@@ -222,7 +239,8 @@ function toBuildingRespone(item, dis, rents) {
         "managername": item.managername,
         "managerphone": item.managerphone,
         "rentprice": item.rentprice,
-        "sellprice": item.sellprice
+        "sellprice": item.sellprice,
+        "customerids": item.customerids
     }
     return result;
 }

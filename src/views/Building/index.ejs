@@ -99,18 +99,22 @@
                                 <button id="xoa" type="button" data-toggle="modal" class="btn btn-default"
                                     data-target="#myModal" data-toggle="tooltip" title="Delete" value="<%=item._id%>"
                                     onclick="chuyen(value)">
-                                    <i class="fas fa-minus-circle"></i>
+                                    <i class="fas fa-minus-circle">
+                                    </i>
                                 </button>
-                                <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default"
-                                    onclick="up(value)" value=<%=item._id%>><i class="material-icons"></i></button>
-                             
+
+                                <button id="contact" type="button" data-toggle="modal" class="btn btn-default"
+                                    data-target="#myModal2" data-toggle="tooltip" title="Contact" value="<%=item._id%>"
+                                    onclick="loadCuss(value)">
+                                    <i class="fas fa-address-book"></i>
+                                    <%= item.customerids.length %>
+                                </button>
                             </td>
                         </tr>
                         <% })%>
                 </tbody>
             </table>
         </div>
-
 
 
         <!-- The Modal -->
@@ -131,6 +135,48 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button id="xoamodal" type="button" class="btn btn-danger">OK</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- The Modal contact -->
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">List Contact</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="showcus">
+
+                                    </tbody>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <!-- <button id="xoamodal" type="button" class="btn btn-danger">OK</button> -->
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
@@ -171,6 +217,51 @@
                         }
                     });
                 })
+                function loadCuss(value) {
+                    $.ajax({
+                        type: "get",
+                        url: "/building/" + value + "/customer",
+                        dataType: "json",
+                        success: function (response) {
+                            $("#showcus").empty()
+                            response.forEach(data => {
+                                var statusPs = "";
+                                if(data.status=="pending"){
+                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="postCuss(value)">Pending</button>';
+                                }else{
+                                    statusPs = '<button type="button" class="btn btn-success btn-sm disabled">Solved</button>';
+                                }
+
+                                var str = "<tr>"
+                                    + "<td>" + data.name + "</td>"
+                                    + "<td>" + data.phone + "</td>"
+                                    + "<td>" + data.email + "</td>"
+                                    + "<td>" + data.type + "</td>"
+                                    + "<td>" + statusPs + "</td>"
+                                    + "</tr>";
+                                $("#showcus").append(str);
+                            });
+                        },
+                        error: function () {
+                            alert('loi');
+                        }
+                    });
+                }
+                function postCuss(value){
+                    $.ajax({
+                        type: "put",
+                        url: "/customer/"+value+"/update",
+                        dataType: "json",
+                        success: function (response) {
+                            location.reload()
+                        },
+                        error:function(err){
+                            alert('loi');
+                        }
+                    });
+                }
+
+
 
             </script>
 

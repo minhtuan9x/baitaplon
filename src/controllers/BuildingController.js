@@ -87,7 +87,7 @@ class BuildingController {
             "phone": dataInput.phone,
             "email": dataInput.email,
             "type": dataInput.type,
-            "status": dataInput.status
+            "status": "pending"
         }
 
 
@@ -96,20 +96,22 @@ class BuildingController {
                 res.send(err)
             else {
                 var listIDcustomer = dataBuid.customerids;
-                customer.create(dataCustomer, function (err, dataCus) {
+                customer.create(dataCustomer,function (err, dataCus) {
                     if (err)
                         res.send(err);
                     else {
                         listIDcustomer.push(dataCus._id.toString());
-
+                        building.findByIdAndUpdate(idBuilding, { customerids: listIDcustomer }, function (err, result) {
+                            if (err)
+                                res.send(err)
+                            else
+                                 res.json("oke");
+                        })
                     }
+                    
                 })
-                building.findByIdAndUpdate(idBuilding, { customerids: listIDcustomer }, function (err, result) {
-                    if (err)
-                        res.send(err)
-                    else
-                         res.json("oke");
-                })
+                
+                res.send(listIDcustomer);
             }
         })
 

@@ -31,7 +31,7 @@ router.get('/:id/comment',building.getCmt)
 
 //[POST] /building/:id/customer
 router.post('/:id/customer',building.insertCustomer)
-//[PUT] /building/:idBuilding/customer/:idCustomer
-
+//[PUT] /building/customer/:id/update
+router.put('/customer/:id/update',building.updateCustomer)
 
 module.exports = router;

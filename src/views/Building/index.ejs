@@ -123,9 +123,9 @@
                                 </button>
                                 <button id="comment" type="button" data-toggle="modal" class="btn btn-default"
                                     data-target="#myModal3" data-toggle="tooltip" title="Contact" value="<%=item._id%>"
-                                    onclick="loadCuss(value)">
+                                    onclick="loadCom(value)">
                                     <i class="fas fa-comment-dots"></i>
-                                    <%= item.customerids.length %>
+                                    <%= item.commentids.length %>
                                 </button>
                             </td>
                         </tr>
@@ -210,7 +210,7 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">List Contact</h4>
+                        <h4 class="modal-title">Comments</h4>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
 
@@ -226,7 +226,7 @@
                                             <th>Comment</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="showcus">
+                                    <tbody id="showcom">
 
                                     </tbody>
                                 </div>
@@ -287,9 +287,9 @@
                             response.forEach(data => {
                                 var statusPs = "";
                                 if(data.status=="pending"){
-                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="postCuss(value)">Pending</button>';
+                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="putCuss(value,pending)">Pending</button>';
                                 }else{
-                                    statusPs = '<button type="button" class="btn btn-success btn-sm disabled">Solved</button>';
+                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'"onclick="putCuss(value,solved)">Solved</button>';
                                 }
 
                                 var str = "<tr>"
@@ -307,11 +307,18 @@
                         }
                     });
                 }
-                function postCuss(value){
+                function putCuss(value,status){
+                    var statusreq = "";
+                    if(status=="pending"){
+                        statusreq="pending"
+                    }else{
+                        statusreq="solved"
+                    }
                     $.ajax({
                         type: "put",
-                        url: "/customer/"+value+"/update",
+                        url: "building/customer/"+value+"/update",
                         dataType: "json",
+                        data:statusreq,
                         success: function (response) {
                             location.reload()
                         },
@@ -322,9 +329,29 @@
                 }
 
 
+                function loadCom(value) {
+                    $.ajax({
+                        type: "get",
+                        url: "/building/" + value + "/comment",
+                        dataType: "json",
+                        success: function (response) {
+                            $("#showcom").empty()
+                            response.forEach(data => {
+                                var str = "<tr>"
+                                    + "<td>" + data.name + "</td>"
+                                    + "<td>" + data.rate +'/5'+ "</td>"
+                                    + "<td>" + data.content + "</td>"
+                                    + "</tr>";
+                                $("#showcom").append(str);
+                            });
+                        },
+                        error: function () {
+                            alert('loi');
+                        }
+                    });
+                }
+
 
             </script>
-
 </body>
-
 </html>

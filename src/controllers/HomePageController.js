@@ -1,11 +1,12 @@
 const building = require('../models/building');
 const district = require('../models/district');
 const renttype = require('../models/renttype');
-class HomePageController{
+class HomePageController {
 
     //[GET] / (HOME PAGE)
     index(req, res) {
-        building.find(function (err, data) {
+        var nameInput = new RegExp(req.query.name, 'i');
+        building.find({ name: nameInput }, function (err, data) {
             if (err) throw err
             district.find(function (err, distrcits) {
                 renttype.find(function (err, rentypes) {
@@ -38,7 +39,7 @@ class HomePageController{
                             "managerphone": item.managerphone,
                             "rentprice": item.rentprice,
                             "sellprice": item.sellprice,
-                            "rank":item.rank
+                            "rank": item.rank
                         }
                         results.push(dataBuilding)
                     });

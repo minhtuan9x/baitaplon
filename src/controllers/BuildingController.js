@@ -30,7 +30,6 @@ class BuildingController {
                         var dataBuilding = toBuildingRespone(item, dis, rents);
                         results.push(dataBuilding)
                     });
-
                     res.render('building/index', { listBuilding: results, namesearch: req.query.name });
                 })
             })
@@ -38,8 +37,7 @@ class BuildingController {
     }
     // [GET] /building/customer  
     detailview(req, res) {
-        var nameInput = new RegExp(req.query.name, 'i');
-        building.find({ name: nameInput }, function (err, buildings) {
+        building.find({ _id: req.query.id }, function (err, buildings) {
             if (err) throw err
             district.find(function (err, distrcits) {
                 renttype.find(function (err, rentypes) {
@@ -106,7 +104,7 @@ class BuildingController {
                                 res.send(err)
                             else
 
-                                 res.send("oke");
+                                res.json("oke");
 
                         })
                     }
@@ -342,7 +340,8 @@ function toBuildingRespone(item, dis, rents) {
         "rentprice": item.rentprice,
         "sellprice": item.sellprice,
         "customerids": item.customerids,
-        "rank": item.rank
+        "rank": item.rank,
+        "commentids": item.commentids
     }
     return result;
 }

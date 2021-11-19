@@ -287,9 +287,9 @@
                             response.forEach(data => {
                                 var statusPs = "";
                                 if(data.status=="pending"){
-                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="putCuss(value,pending)">Pending</button>';
+                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="putCuss1(value)">Pending</button>';
                                 }else{
-                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'"onclick="putCuss(value,solved)">Solved</button>';
+                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'"onclick="putCuss2(value)">Solved</button>';
                                 }
 
                                 var str = "<tr>"
@@ -307,18 +307,30 @@
                         }
                     });
                 }
-                function putCuss(value,status){
-                    var statusreq = "";
-                    if(status=="pending"){
-                        statusreq="pending"
-                    }else{
-                        statusreq="solved"
-                    }
+                function putCuss1(value){
                     $.ajax({
                         type: "put",
                         url: "building/customer/"+value+"/update",
                         dataType: "json",
-                        data:statusreq,
+                        data:{
+                            "status":"pending"
+                        },
+                        success: function (response) {
+                            location.reload()
+                        },
+                        error:function(err){
+                            alert('loi put');
+                        }
+                    });
+                }
+                function putCuss2(value){
+                    $.ajax({
+                        type: "put",
+                        url: "building/customer/"+value+"/update",
+                        dataType: "json",
+                        data:{
+                            "status":"solved"
+                        },
                         success: function (response) {
                             location.reload()
                         },

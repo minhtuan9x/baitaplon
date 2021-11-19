@@ -23,4 +23,11 @@ router.put('/:id/update',building.updateModel)
 //[DELETE] /building/:id/delete
 router.delete('/:id/delete',building.deleteModel)
 
+// [POST] /building/:id/customer
+router.post('/:id/comment',building.insertComment)
+
+// [GET] /building/:id/comment
+router.get('/:id/comment',building.getCmt)
+
+
 module.exports = router;

@@ -2,6 +2,7 @@ const building = require('../models/building');
 const district = require('../models/district');
 const renttype = require('../models/renttype');
 const customer = require('../models/customer');
+const comment = require('../models/comment');
 
 class BuildingController {
     // [GET] /building  
@@ -29,7 +30,7 @@ class BuildingController {
                         var dataBuilding = toBuildingRespone(item, dis, rents);
                         results.push(dataBuilding)
                     });
-                    
+
                     res.render('building/index', { listBuilding: results, namesearch: req.query.name });
                 })
             })
@@ -226,6 +227,61 @@ class BuildingController {
         })
 
     }
+
+    // [POST] /building/:id/comment
+    insertComment(req, res) {
+        var id = req.params.id;
+        building.findById(id, function (err, data) {
+            comment.create(toCommentReq(req.body), function (err, rel) {
+                if (err) throw err
+                var idcmts = data.commentids;
+                idcmts.push(rel._id.toString())
+                building.findByIdAndUpdate(id, { commentids: idcmts }, function (err, rel2) {
+
+                    building.findById(id, function (err, data) {
+                        comment.find(function (err, data2) {
+                            var listCmt = [];
+                            data.commentids.forEach(item => {
+                                data2.forEach(item2 => {
+                                    if (item == item2._id.toString())
+                                        listCmt.push(item2)
+                                })
+                            })
+                            var count = 0;
+                            var rateall = 0;
+                            listCmt.forEach(item3 => {
+                                rateall += parseInt(item3.rate);
+                                count++;
+                            })
+                            var rank = rateall/count;
+                            building.findByIdAndUpdate(id,{rank:rank},function(err,kq){
+                                res.json(rel2);
+                            })
+                        })
+                    })
+
+                    
+                })
+            })
+        })
+    }
+
+    // [GET] /building/:id/comment
+    getCmt(req, res) {
+        var id = req.params.id;
+        building.findById(id, function (err, data) {
+            comment.find(function (err, data2) {
+                var listCmt = [];
+                data.commentids.forEach(item => {
+                    data2.forEach(item2 => {
+                        if (item == item2._id.toString())
+                            listCmt.push(item2)
+                    })
+                })
+                res.json(listCmt);
+            })
+        })
+    }
 }
 function toBuildingRespone(item, dis, rents) {
     var result = {
@@ -259,6 +315,14 @@ function toBuildingRequest(data) {
         "managerphone": data.managerphone,
         "rentprice": data.rentprice,
         "sellprice": data.sellprice,
+    }
+    return result;
+}
+function toCommentReq(data) {
+    var result = {
+        "name": data.name,
+        "content": data.content,
+        "rate": data.rate
     }
     return result;
 }

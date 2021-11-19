@@ -13,7 +13,8 @@ var buildingSchema = mongoose.Schema({
     rentprice:String,
     sellprice:String,
     customerids:Array,
-    rank:Number
+    rank:Number,
+    commentids:Array
 })
 var building = mongoose.model("building",buildingSchema);
 module.exports  = building;

@@ -118,8 +118,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#myModal">Leave contact information</button>
+                                    <button id="tuan1" type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#myModal" value="<%=item._id%>">Leave contact information</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -152,7 +152,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label><b>Content</b></label>
-                            <input type="" class="form-control" name="name">
+                            <input type="" class="form-control" name="content">
                         </div>
                     </div>
                     <div class="form-row">
@@ -197,7 +197,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                          <button type="submit" class="btn btn-success btn-block">Comment</button>
+                            <button type="submit" class="btn btn-success btn-block">Comment</button>
                         </div>
                     </div>
                 </form>
@@ -237,13 +237,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" value="BUY" name="type">Buy</label>
+                                        <label><input type="radio" value="BUY" name="type">&nbsp&nbspBuy</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" value="RENT" name="type">Rent</label>
+                                        <label><input type="radio" value="RENT" name="type">&nbsp&nbspRent</label>
                                     </div>
                                     <div class="radio">
-                                        <label><input type="radio" value="NOTHING" name="type">Nothing</label>
+                                        <label><input type="radio" value="NOTHING" name="type">&nbsp&nbspNothing</label>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +278,46 @@
                             }
                         });
                     })
+
                 })
+                $(document).ready(function () {
+                    $("#formcmt").submit(function (e) {
+                        e.preventDefault();
+                        var data = $("#formcmt").serialize();
+                        $.ajax({
+                            type: "post",
+                            url: "/building/" + $("#tuan1").val() + "/comment",
+                            data: data,
+                            dataType: "json",
+                            success: function (response) {
+                                location.reload()
+                            },
+                            error: function () {
+                                alert('loicmt');
+                            }
+                        });
+                    })
+
+                })
+                $.ajax({
+                    type: "get",
+                    url: "/building/" + $("#tuan1").val() + "/comment",
+                    dataType: "json",
+                    success: function (response) {
+                        $("#list2").empty();
+                        response.forEach(item => {
+                            var str = '<li class="list-group-item list-group-item-success"><b>Name: </b>'+item.name+'</li>'
+                            +'<li class="list-group-item list-group-item-success"><b>Rate: </b>'+item.rate+'/5'+'</li>'
+                            +'<li class="list-group-item list-group-item-success"><b>Comment: </b>'+item.content+'</li>'
+                            +'<li></li>';
+                            $("#list2").append(str)
+                        });
+                    },
+                    error:function(){
+                        console.log("loicmtget");
+                    }
+                });
+
             </script>
             <style>
                 .list-group {

@@ -287,9 +287,9 @@
                             response.forEach(data => {
                                 var statusPs = "";
                                 if(data.status=="pending"){
-                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'"onclick="putCuss1(value)">Pending</button>';
+                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'" onclick="putCuss1(value)">Pending</button>';
                                 }else{
-                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'"onclick="putCuss2(value)">Solved</button>';
+                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'" onclick="putCuss2(value)">Solved</button>';
                                 }
 
                                 var str = "<tr>"
@@ -313,7 +313,7 @@
                         url: "building/customer/"+value+"/update",
                         dataType: "json",
                         data:{
-                            "status":"pending"
+                            "status":"solved"
                         },
                         success: function (response) {
                             location.reload()
@@ -329,7 +329,7 @@
                         url: "building/customer/"+value+"/update",
                         dataType: "json",
                         data:{
-                            "status":"solved"
+                            "status":"pending"
                         },
                         success: function (response) {
                             location.reload()

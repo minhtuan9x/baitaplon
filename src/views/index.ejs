@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
     <!-- Navigation-->
     <%-include ("./public/ejspub/header.ejs")%>
         <!-- Page Header-->
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-6">
-                    <table class="table" style="border-color: white;">
-                        <tbody style="text-align: center;">
-                            <%listBuilding.forEach(item=>{%>
+            <%listBuilding.forEach(item=>{%>
+                <div class="row" style="margin-left: 7%;margin-right: 7%;">
+                    <div class="col-md-6">
+                        <table class="table" style="border-color: white;">
+                            <tbody  style="text-align: center;">
                                 <tr>
-                                    <td>
-                                        <image type="button" src="<%=item.imagelink%>" width="400" height="300"
+                                    <td >
+                                        <image type="button" src="<%=item.imagelink%>" width="350" height="250"
                                             style="border-radius: 10%;"
-                                            onclick="window.location.href='/building/customer?id=<%=item._id%>'"></image>
+                                            onclick="window.location.href='/building/customer?id=<%=item._id%>'">
+                                        </image>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <b style="font-size: 30px;">
+                                        <%for(var i=1 ; i<=item.rank;i++){%>
+                                            <i class="fas fa-star"></i>
+                                            <%}%>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table" style="border-color: white;">
+                            <tbody style="text-align: left;">
+                                <tr>
+                                    <td >
+                                        <b type="button" style="font-size: 30px; color: deeppink;" onclick="window.location.href='/building/customer?id=<%=item._id%>'">
                                             <%=item.name%>
                                         </b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <%for(var i = 1 ; i<=item.rank;i++){%>
-                                            <i class="fas fa-star"></i>
-                                        <%}%>
+                                        <b><%=item.rentarea%></b> - <%=item.address%>
                                     </td>
                                 </tr>
-                                <td>
-                                    <%=item.address%>
-                                </td>
                                 <tr>
                                     <td>
                                         <%=item.note%>
-                                            <hr />
                                     </td>
                                 </tr>
-                                <% })%>
-                        </tbody>
-                    </table>
+                                <tr>
+                                    <td style="color: darksalmon">
+                                        Đăng bởi: <%=item.managername%>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr/>
                 </div>
-                <div class="col-md-3">
-
-                </div>
-            </div>
+                <% })%>
         </div>
 
 

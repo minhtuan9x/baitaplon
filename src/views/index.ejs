@@ -102,11 +102,19 @@
                                                     <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
                                                     <a type="button" onclick="window.location.href='?page=<%= page+1 %>'"><%= page+1 %> </a>
                                                 <%}else{%>
-                                                        <a type="button" onclick="window.location.href='?page=1'">&laquo;</a>
-                                                        <a type="button" onclick="window.location.href='?page=<%= page-1 %>'"><%= page-1 %> </a>
-                                                        <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
-                                                        <a type="button" onclick="window.location.href='?page=<%= page+1 %>'"><%= page+1 %> </a>
-                                                        <a type="button" onclick="window.location.href='?page=<%= sum %>'">&raquo;</a>
+                                                        <%if(page==2){%>
+                                                            <a type="button" onclick="window.location.href='?page=<%= page-1 %>'"><%= page-1 %> </a>
+                                                            <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
+                                                            <a type="button" onclick="window.location.href='?page=<%= page+1 %>'"><%= page+1 %> </a>
+                                                            <a type="button" onclick="window.location.href='?page=<%= sum %>'">&raquo;</a>
+                                                        <%}else{%>
+                                                                <a type="button" onclick="window.location.href='?page=1'">&laquo;</a>
+                                                                <a type="button" onclick="window.location.href='?page=<%= page-1 %>'"><%= page-1 %> </a>
+                                                                <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
+                                                                <a type="button" onclick="window.location.href='?page=<%= page+1 %>'"><%= page+1 %> </a>
+                                                                <a type="button" onclick="window.location.href='?page=<%= sum %>'">&raquo;</a>
+                                                        <%}%>
+                                                       
                                                 <%}%>
                                                
                                         <%}%>

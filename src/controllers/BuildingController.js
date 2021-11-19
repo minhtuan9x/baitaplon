@@ -106,7 +106,7 @@ class BuildingController {
                                 res.send(err)
                             else
 
-                                 res.send("oke");
+                                 res.json("oke");
 
                         })
                     }
@@ -120,8 +120,19 @@ class BuildingController {
 
     }
     //=====================================================================================================================
-    //[PUT] /building/:id/customer
-
+    //[PUT] /building/customer/:id/update
+    updateCustomer(req,res){
+        var idCus = req.params.id;
+        var statusBody = req.body.status;
+        customer.findByIdAndUpdate(idCus,{status:statusBody},function(err,data){
+            if(err)
+                res.send(err);
+            else{
+                res.json("ok");
+            }
+        })
+    }
+    
     //=====================================================================================================================
     // [GET] /building/:id/customer  
     getCusByBuildingID(req, res) {

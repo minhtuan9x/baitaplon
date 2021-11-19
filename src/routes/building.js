@@ -5,6 +5,8 @@ const router = express.Router();
 
 //[GET] /building  
 router.get('/',building.index);
+//[GET] /building  
+router.get('/customer',building.detailview);
 //[GET] buidling/insert  
 router.get('/insert',building.insertView);
 //[GET] building/:id/update  

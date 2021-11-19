@@ -1,9 +1,10 @@
 const building = require('../models/building');
 const district = require('../models/district');
 const renttype = require('../models/renttype');
+const customer = require('../models/customer');
 
 class BuildingController {
-    //[GET] /building  
+    // [GET] /building  
     index(req, res) {
         var nameInput = new RegExp(req.query.name, 'i');
         building.find({ name: nameInput }, function (err, buildings) {
@@ -29,6 +30,47 @@ class BuildingController {
                         results.push(dataBuilding)
                     });
                     res.render('building/index', { listBuilding: results, namesearch: req.query.name });
+                })
+            })
+        })//
+    }
+    // [GET] /building/customer  
+    detailview(req, res) {
+        var nameInput = new RegExp(req.query.name, 'i');
+        building.find({ name: nameInput }, function (err, buildings) {
+            if (err) throw err
+            district.find(function (err, distrcits) {
+                renttype.find(function (err, rentypes) {
+                    customer.find(function (err, customers) {
+                        var results = [];
+                        var dis;
+                        var cuss = [];
+                        buildings.forEach(item => {
+                            var rents = [];
+                            cuss = [];
+                            distrcits.forEach(item2 => {
+                                if (item2._id == item.districtid)
+                                    dis = item2.name;
+                            })
+                            item.renttypeids.forEach(item4 => {
+                                rentypes.forEach(item3 => {
+                                    if (item3._id == item4) {
+                                        rents.push(item3.name)
+                                    }
+                                })
+                            })
+                            customers.forEach(item5 => {
+                                item.customerids.forEach(item6 => {
+                                    if (item5._id.toString() == item6) {
+                                        cuss.push(item5)
+                                    }
+                                })
+                            })
+                            var dataBuilding = toBuildingRespone(item, dis, rents);
+                            results.push(dataBuilding)
+                        });
+                        res.render('building/detail', { listBuilding: results ,listCustomer : cuss});
+                    })
                 })
             })
         })//
@@ -87,21 +129,21 @@ class BuildingController {
                             }
                         })
                         var listDistricts = [];
-                        dataDictrict.forEach(item=>{
-                            if(item._id==dataBuilding.districtid){
+                        dataDictrict.forEach(item => {
+                            if (item._id == dataBuilding.districtid) {
                                 listDistricts.push({
                                     "_id": item._id,
                                     "name": item.name,
                                     "selected": "selected"
                                 })
-                            }else{
+                            } else {
                                 listDistricts.push({
                                     "_id": item._id,
                                     "name": item.name,
                                     "selected": ""
                                 })
                             }
-                            
+
                         })
                         var Data = {
                             building: dataBuilding,
@@ -129,6 +171,7 @@ class BuildingController {
         var dataInsert = req.body;
         var dataBuilding = toBuildingRequest(dataInsert);
         building.create(dataBuilding, function (err, result) {
+            console.log(result);
             if (err)
                 res.send("INSERT FAILURE");
             else {
@@ -150,6 +193,10 @@ class BuildingController {
                 res.json("ok");
         })
     }
+
+
+
+
     //[DELETE] /building/:id/delete
     deleteModel(req, res) {
         var id = req.params.id;

@@ -1,0 +1,192 @@
+<%-include ("../public/ejspub/header.ejs")%>
+    <div class="container">
+        <div class="row">
+            <% listBuilding.forEach(item=>{%>
+                <div class="col-md-5">
+                    <table class="table" style="border-color: white;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <image type="button" src="<%=item.imagelink%>" width="400" height="300"
+                                        style="border-radius: 10%;"></image>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 style="text-align: center;color: chocolate;"><b>Contacted customer</b></h6>
+                                    <ul class="list-group" style="text-align: center;">
+                                        <% listCustomer.forEach(item2=>{%>
+                                            <li class="list-group-item"><%= item2.name %> - <%= item2.status %> </li>
+                                        <%}) %> 
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-md-7">
+                    <table class="table" style="border-color: white;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b style="font-size: 30px;color: brown;">
+                                        <%=item.name%>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Address: </b>
+                                        <%=item.address%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Rent Area: </b>
+                                        <%=item.rentarea%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Rent Type: </b>
+                                        <%=item.renttypes%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Phone Contact: </b>
+                                        <%=item.managerphone%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Name Contact:</b>
+                                        <%=item.managername%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Sell price: </b>
+                                        <%=item.sellprice%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Rent price: </b>
+                                        <%=item.rentprice%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6><b>Description: </b>
+                                        <%=item.note%>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#myModal">Leave contact information</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <%}) %>
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Information Form</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="formnhap">
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" name="phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="email">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <div class="radio">
+                                        <label><input type="radio" value="BUY" name="status">Buy</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="RENT" name="status">Rent</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="NOTHING" name="status">Nothing</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button id="submitbtn" type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%-include ("../public/ejspub/footer.ejs")%>
+            <script>
+                $(document).ready(function(){
+                    $("#submitbtn").click(function(e){
+                        e.preventDefault();
+                        $.ajax({
+                            type: "post",
+                            url: "/",
+                            data: $("#formnhap").serialize(),
+                            dataType: "json",
+                            success: function (response) {
+                                alert("Đã thêm thông tin liên hệ!!!!");
+                                location.reload()
+                            },
+                            error:function(res){
+                                alert('error');
+                            }
+                        });
+                    })
+                })
+            </script>
+            <style>
+                .list-group {
+                    height: 200px;
+                    width: 100%;
+                }
+                .list-group {
+                    overflow: hidden;
+                    overflow-y: scroll;
+                }
+            </style>

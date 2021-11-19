@@ -5,6 +5,12 @@ class HomePageController {
 
     //[GET] / (HOME PAGE)
     index(req, res) {
+        //Pagination
+        var page = parseInt(req.query.page) || 1;
+        var perPage = 2;
+        var start = (page -1) * perPage;
+        var end = page * perPage ;
+        //=========================================================
         var nameInput = new RegExp(req.query.name, 'i');
         building.find({ name: nameInput }, function (err, data) {
             if (err) throw err
@@ -44,7 +50,7 @@ class HomePageController {
                         results.push(dataBuilding)
                     });
                     // res.json(results);
-                    res.render('index', { listBuilding: results });
+                    res.render('index', { listBuilding: results.slice(start,end)});
                 })
             })
         })

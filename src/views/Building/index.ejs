@@ -109,6 +109,12 @@
                                     <i class="fas fa-address-book"></i>
                                     <%= item.customerids.length %>
                                 </button>
+                                <button id="comment" type="button" data-toggle="modal" class="btn btn-default"
+                                    data-target="#myModal2" data-toggle="tooltip" title="Contact" value="<%=item._id%>"
+                                    onclick="loadCuss(value)">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <%= item.customerids.length %>
+                                </button>
                             </td>
                         </tr>
                         <% })%>

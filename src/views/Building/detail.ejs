@@ -14,20 +14,29 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <h5 style="text-align: center;color: chocolate;"><b>Contacted customer</b></h6>
-                                    <ul class="list-group">
-                                        <% listCustomer.forEach(item2=>{%>
-                                            <li class="list-group-item list-group-item-info"><b>Name: </b><%= item2.name %> </li>
-                                            <li class="list-group-item list-group-item-info"><b>Type: </b><%= item2.type %> </li>
-                                            <% if(item2.status=="pending"){%>
-                                                <li class="list-group-item list-group-item-warning"><b>Status: </b><%= item2.status %> </li>
-                                            <%}else{%> 
-                                                <li class="list-group-item list-group-item-success"><b>Status: </b><%= item2.status %> </li>
-                                            <%} %> 
-                                            
-                                            <li></li>
-                                        <%}) %> 
-                                    </ul>
+                                    <h5 style="text-align: center;color: chocolate;"><b>Customer Contact</b></h6>
+                                        <ul class="list-group">
+                                            <% listCustomer.forEach(item2=>{%>
+                                                <li class="list-group-item list-group-item-info"><b>Name: </b>
+                                                    <%= item2.name %>
+                                                </li>
+                                                <li class="list-group-item list-group-item-info"><b>Type: </b>
+                                                    <%= item2.type %>
+                                                </li>
+                                                <% if(item2.status=="pending" ){%>
+                                                    <li class="list-group-item list-group-item-warning"><b>Status: </b>
+                                                        <%= item2.status %>
+                                                    </li>
+                                                    <%}else{%>
+                                                        <li class="list-group-item list-group-item-success"><b>Status:
+                                                            </b>
+                                                            <%= item2.status %>
+                                                        </li>
+                                                        <%} %>
+
+                                                            <li></li>
+                                                            <%}) %>
+                                        </ul>
                                 </td>
                             </tr>
                         </tbody>
@@ -42,6 +51,13 @@
                                     <b style="font-size: 30px;color: brown;">
                                         <%=item.name%>
                                     </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <%for(var i=1 ; i<=item.rank;i++){%>
+                                        <i class="fas fa-star"></i>
+                                        <%}%>
                                 </td>
                             </tr>
                             <tr>
@@ -111,6 +127,82 @@
                 </div>
                 <%}) %>
         </div>
+        <hr />
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group" id="list2">
+                    <li class="list-group-item list-group-item-success"><b>Name: </b>Tuấn</li>
+                    <li class="list-group-item list-group-item-success"><b>Rate: </b><i class="fas fa-star"></i></li>
+                    <li class="list-group-item list-group-item-success"><b>Comment: </b>Nhà đẹp phết</li>
+                    <li></li>
+
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <form id="formcmt">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label><b>Name</b></label>
+                            <input type="" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label><b>Content</b></label>
+                            <input type="" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label><b>Rate</b></label>
+                            <br>
+                            <input type="radio" name="rate" value=1>&nbsp&nbsp
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i><br>
+
+                            <input type="radio" name="rate" value=2>&nbsp&nbsp
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i><br>
+
+                            <input type="radio" name="rate" value=3>&nbsp&nbsp
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i><br>
+
+                            <input type="radio" name="rate" value=4>&nbsp&nbsp
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i><br>
+
+                            <input type="radio" name="rate" checked value=5>&nbsp&nbsp
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><br>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <button type="submit" class="btn btn-success btn-block">Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
@@ -169,8 +261,8 @@
         </div>
         <%-include ("../public/ejspub/footer.ejs")%>
             <script>
-                $(document).ready(function(){
-                    $("#submitbtn").click(function(e){
+                $(document).ready(function () {
+                    $("#submitbtn").click(function (e) {
                         e.preventDefault();
                         $.ajax({
                             type: "post",
@@ -181,7 +273,7 @@
                                 alert("Đã thêm thông tin liên hệ!!!!");
                                 location.reload()
                             },
-                            error:function(res){
+                            error: function (res) {
                                 alert('error');
                             }
                         });
@@ -193,7 +285,18 @@
                     height: 200px;
                     width: 100%;
                 }
+
                 .list-group {
+                    overflow: hidden;
+                    overflow-y: scroll;
+                }
+
+                #list2 {
+                    height: 400px;
+                    width: 100%;
+                }
+
+                #list2 {
                     overflow: hidden;
                     overflow-y: scroll;
                 }

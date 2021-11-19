@@ -29,7 +29,7 @@ class BuildingController {
                         var dataBuilding = toBuildingRespone(item, dis, rents);
                         results.push(dataBuilding)
                     });
-
+                    
                     res.render('building/index', { listBuilding: results, namesearch: req.query.name });
                 })
             })
@@ -240,7 +240,8 @@ function toBuildingRespone(item, dis, rents) {
         "managerphone": item.managerphone,
         "rentprice": item.rentprice,
         "sellprice": item.sellprice,
-        "customerids": item.customerids
+        "customerids": item.customerids,
+        "rank": item.rank
     }
     return result;
 }

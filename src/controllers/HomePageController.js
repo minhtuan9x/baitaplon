@@ -37,7 +37,8 @@ class HomePageController{
                             "managername": item.managername,
                             "managerphone": item.managerphone,
                             "rentprice": item.rentprice,
-                            "sellprice": item.sellprice
+                            "sellprice": item.sellprice,
+                            "rank":item.rank
                         }
                         results.push(dataBuilding)
                     });

@@ -29,6 +29,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <%for(var i = 1 ; i<=item.rank;i++){%>
+                                            <i class="fas fa-star"></i>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <%=item.note%>
                                             <hr />
                                     </td>

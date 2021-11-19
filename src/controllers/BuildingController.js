@@ -246,7 +246,6 @@ class BuildingController {
         var dataInsert = req.body;
         var dataBuilding = toBuildingRequest(dataInsert);
         building.create(dataBuilding, function (err, result) {
-            console.log(result);
             if (err)
                 res.send("INSERT FAILURE");
             else {

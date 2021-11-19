@@ -23,11 +23,15 @@ router.put('/:id/update',building.updateModel)
 //[DELETE] /building/:id/delete
 router.delete('/:id/delete',building.deleteModel)
 
-// [POST] /building/:id/customer
+// [POST] /building/:id/comment
 router.post('/:id/comment',building.insertComment)
 
 // [GET] /building/:id/comment
 router.get('/:id/comment',building.getCmt)
+
+//[POST] /building/:id/customer
+router.post('/:id/customer',building.insertCustomer)
+//[PUT] /building/:idBuilding/customer/:idCustomer
 
 
 module.exports = router;

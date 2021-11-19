@@ -10,9 +10,9 @@
                 <div class="row" style="margin-left: 7%;margin-right: 7%;">
                     <div class="col-md-6">
                         <table class="table" style="border-color: white;">
-                            <tbody  style="text-align: center;">
+                            <tbody style="text-align: center;">
                                 <tr>
-                                    <td >
+                                    <td>
                                         <image type="button" src="<%=item.imagelink%>" width="350" height="250"
                                             style="border-radius: 10%;"
                                             onclick="window.location.href='/building/customer?id=<%=item._id%>'">
@@ -33,15 +33,18 @@
                         <table class="table" style="border-color: white;">
                             <tbody style="text-align: left;">
                                 <tr>
-                                    <td >
-                                        <b type="button" style="font-size: 30px; color: deeppink;" onclick="window.location.href='/building/customer?id=<%=item._id%>'">
+                                    <td>
+                                        <b type="button" style="font-size: 30px; color: deeppink;"
+                                            onclick="window.location.href='/building/customer?id=<%=item._id%>'">
                                             <%=item.name%>
                                         </b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <b><%=item.rentarea%></b> - <%=item.address%>
+                                        <b>
+                                            <%=item.rentarea%>
+                                        </b> - <%=item.address%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -57,32 +60,47 @@
                             </tbody>
                         </table>
                     </div>
-                    <hr/>
+                    <hr />
                 </div>
                 <% })%>
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                              <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                  <span aria-hidden="true">&laquo;</span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                  <span aria-hidden="true">&raquo;</span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-                              </li>
-                            </ul>
-                          </nav>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center;">
+                            <div class="pagination" id="page" >
+                                <%if(sum<3){%>
+                                    <%if(page==1){%>
+                                        <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
+                                        <a type="button" onclick="window.location.href='?page=2'">2 </a>
+                                    <%}%>
+                                    <%if(page==2){%>
+                                        <a type="button" onclick="window.location.href='?page=1'">1 </a>
+                                        <a id="clp" type="button" onclick="window.location.href='?page=2'">2 </a>
+                                    <%}%>
+                                    
+                                <%}else{%>
+                                    <%if(page==sum){%>
+                                        <a type="button" onclick="window.location.href='?page=1'">&laquo;</a>
+                                        <a type="button" onclick="window.location.href='?page=<%= page-2 %>'"><%= page-2 %> </a>
+                                        <a type="button" onclick="window.location.href='?page=<%= page-1 %>'"><%= page-1 %> </a>
+                                        <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
+                                    <%}else{%>
+                                        <%if(page==1){%>
+                                            <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
+                                            <a type="button" onclick="window.location.href='?page=2'">2</a>
+                                            <a type="button" onclick="window.location.href='?page=3'">3 </a>
+                                            <a type="button" onclick="window.location.href='?page=<%= sum %>'">&raquo;</a>
+                                        <%}else{%>
+                                                <a type="button" onclick="window.location.href='?page=1'">&laquo;</a>
+                                                <a type="button" onclick="window.location.href='?page=<%= page-1 %>'"><%= page-1 %> </a>
+                                                <a id="clp" type="button" onclick="window.location.href='?page=<%= page %>'"><%= page %> </a>
+                                                <a type="button" onclick="window.location.href='?page=<%= page+1 %>'"><%= page+1 %> </a>
+                                                <a type="button" onclick="window.location.href='?page=<%= sum %>'">&raquo;</a>
+                                        <%}%>
+                                    <%}%>
+                                <%}%>
+                               
+                            </div>
+                        </div>
                     </div>
-                </div>
         </div>
 
 
@@ -90,5 +108,23 @@
 
 
 </body>
+<style>
+    .pagination {
+        display: inline-block;
+    }
 
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 25px;
+    }
+    #clp{
+        color: firebrick;
+    }
+</style>
+<script>
+
+</script>
 </html>

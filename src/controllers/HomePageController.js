@@ -58,7 +58,7 @@ class HomePageController {
                     sum = sum +1 ;
                    //res.send(sum);
                     
-                    res.render('index', {listBuilding: results.slice(start,end),SumPage : sum});
+                    res.render('index', {listBuilding: results.slice(start,end),sum : sum,page:page});
                 })
             })
         })

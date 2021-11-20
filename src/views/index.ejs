@@ -46,7 +46,7 @@
                                         <b>
                                             <%=item.rentarea%>
                                         </b> ||  <%=item.address%> || <a style="color: blue;"> <%=item.renttypes%></a> 
-                                        <%if(item.avalible=="avalible"){%>
+                                        <%if(item.avalible=="avalible"||item.avalible==undefined){%>
                                             <a style="color: chartreuse;"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                                         <%}else{%>
                                             <a style="color: crimson"><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -76,10 +76,14 @@
                         <div class="col-md-12" style="text-align: center;">
                             <div class="pagination" id="page" >
                                 <%if(sum<=3){%>
-                                    <%if(sum<=2){%>
-                                        <%if(sum==0){%>
-                                            
-                                        <%}%>
+                                    <%if(sum==0){%>
+                                            Nothing
+                                    <%}%>
+                                    <%if(sum==1){%>
+                                        <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a> 
+                                    <%}%>
+                                    <%if(sum==2){%>
+                                        
                                         <%if(page==1){%>
                                             <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
                                             <a type="button" onclick="window.location.href='?page=2'">2 </a>
@@ -88,7 +92,7 @@
                                             <a type="button" onclick="window.location.href='?page=1'">1 </a>
                                             <a id="clp" type="button" onclick="window.location.href='?page=2'">2 </a>
                                         <%}%>
-                                    <%}else{%>
+                                    <%}if(sum==3){%>
                                         <%if(page==1){%>
                                             <a id="clp" type="button" onclick="window.location.href='?page=1'">1 </a>
                                             <a type="button" onclick="window.location.href='?page=2'">2 </a>

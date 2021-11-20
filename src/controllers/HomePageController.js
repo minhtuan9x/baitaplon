@@ -22,7 +22,7 @@ class HomePageController {
                     var dis;
                     var dataPs = [];
                     data.forEach(i => {
-                        if (i.avalible == "avalible")
+                        if (i.avalible == "avalible"||i.avalible==undefined)
                             dataPs.push(i);
                     })
                     dataPs.forEach(item => {
@@ -57,8 +57,8 @@ class HomePageController {
                         }
                         results.push(dataBuilding)
                     });
-                    sum = Math.floor(data.length / (perPage))
-                    residual = data.length % (perPage)
+                    sum = Math.floor(dataPs.length / (perPage))
+                    residual = dataPs.length % (perPage)
                     // res.send("abc"  + data.length/perPage);
                     if (residual > 0)
                         sum = sum + 1;

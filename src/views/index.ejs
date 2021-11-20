@@ -7,7 +7,7 @@
         <!-- Page Header-->
         <div class="container">
             <%listBuilding.forEach(item=>{%>
-                <%if(item.avalible=="avalible"){%>
+             
                 <div class="row" style="margin-left: 7%;margin-right: 7%;">
                     <div class="col-md-6">
                         <table class="table" style="border-color: white">
@@ -45,7 +45,13 @@
                                     <td>
                                         <b>
                                             <%=item.rentarea%>
-                                        </b> ||  <%=item.address%> || <a style="color: blue;"> <%=item.renttypes%></a> <a style="color: chartreuse;"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                        </b> ||  <%=item.address%> || <a style="color: blue;"> <%=item.renttypes%></a> 
+                                        <%if(item.avalible=="avalible"){%>
+                                            <a style="color: chartreuse;"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                        <%}else{%>
+                                            <a style="color: crimson"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        <%}%>
+                                       
                                     </td>
                                 </tr>
                                
@@ -64,7 +70,7 @@
                     </div>
                     
                 </div>
-                <%}%>
+              
                 <% })%>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center;">

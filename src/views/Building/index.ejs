@@ -105,7 +105,7 @@
                             <td>
                                 <image src="<%=item.imagelink%>" width="300" height="200"></image>
                             </td>
-                            <td>
+                            <td style="width: 100px;text-align: left;">
                                 <button id="update" data-toggle="tooltip" title="Update" class="btn btn-default"
                                     onclick="up(value)" value=<%=item._id%>><i class="fas fa-user-edit"></i></button>
                                 <button id="xoa" type="button" data-toggle="modal" class="btn btn-default"
@@ -127,6 +127,15 @@
                                     <i class="fas fa-comment-dots"></i>
                                     <%= item.commentids.length %>
                                 </button>
+                                <%if(item.avalible=="avalible"||item.avalible==undefined){%>
+                                    <button id="aval" value="<%= item._id %> " onclick="putAval1(value)"
+                                        class="btn btn-outline-success btn-sm btn-block" data-toggle="tooltip"
+                                        title="avalible"><i class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                    <%}else{%>
+                                        <button id="aval" value="<%= item._id %> " onclick="putAval2(value)"
+                                            class="btn btn-outline-danger btn-sm btn-block" data-toggle="tooltip"
+                                            title="unavalible"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <%}%>
                             </td>
                         </tr>
                         <% })%>
@@ -203,7 +212,7 @@
         </div>
 
 
-        
+
         <!-- The Modal Comment -->
         <div class="modal fade" id="myModal3">
             <div class="modal-dialog modal-lg">
@@ -287,10 +296,10 @@
                             $("#showcus").empty()
                             response.forEach(data => {
                                 var statusPs = "";
-                                if(data.status=="pending"){
-                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="'+data._id+'" onclick="putCuss1(value)">Pending</button>';
-                                }else{
-                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="'+data._id+'" onclick="putCuss2(value)">Solved</button>';
+                                if (data.status == "pending") {
+                                    statusPs = '<button type="button" class="btn btn-warning btn-sm" value="' + data._id + '" onclick="putCuss1(value)">Pending</button>';
+                                } else {
+                                    statusPs = '<button type="button" class="btn btn-success btn-sm " value="' + data._id + '" onclick="putCuss2(value)">Solved</button>';
                                 }
 
                                 var str = "<tr>"
@@ -308,34 +317,34 @@
                         }
                     });
                 }
-                function putCuss1(value){
+                function putCuss1(value) {
                     $.ajax({
                         type: "put",
-                        url: "building/customer/"+value+"/update",
+                        url: "building/customer/" + value + "/update",
                         dataType: "json",
-                        data:{
-                            "status":"solved"
+                        data: {
+                            "status": "solved"
                         },
                         success: function (response) {
                             location.reload()
                         },
-                        error:function(err){
+                        error: function (err) {
                             alert('loi put');
                         }
                     });
                 }
-                function putCuss2(value){
+                function putCuss2(value) {
                     $.ajax({
                         type: "put",
-                        url: "building/customer/"+value+"/update",
+                        url: "building/customer/" + value + "/update",
                         dataType: "json",
-                        data:{
-                            "status":"pending"
+                        data: {
+                            "status": "pending"
                         },
                         success: function (response) {
                             location.reload()
                         },
-                        error:function(err){
+                        error: function (err) {
                             alert('loi put');
                         }
                     });
@@ -351,17 +360,17 @@
                             $("#showcom").empty()
                             response.listCmt.forEach(data => {
                                 var dtrep = "";
-                                if(data.reply==undefined||data.reply==""){
-                                    dtrep="";
-                                }else{
-                                    dtrep=data.reply;
+                                if (data.reply == undefined || data.reply == "") {
+                                    dtrep = "";
+                                } else {
+                                    dtrep = data.reply;
                                 }
-                                var rep = '<td><input id="'+data._id+'" type="text" name="reply" value="'+dtrep+'"><button class="btn btn-danger" type="button" value="'+data._id+'" onclick="rep(value)">Rep</button></td>'
+                                var rep = '<td><input id="' + data._id + '" type="text" name="reply" value="' + dtrep + '"><button class="btn btn-danger" type="button" value="' + data._id + '" onclick="rep(value)">Rep</button></td>'
                                 var str = "<tr>"
                                     + "<td>" + data.name + "</td>"
-                                    + "<td>" + data.rate +'/5'+ "</td>"
+                                    + "<td>" + data.rate + '/5' + "</td>"
                                     + "<td>" + data.content + "</td>"
-                                    +rep
+                                    + rep
                                     + "</tr>";
                                 $("#showcom").append(str);
                             });
@@ -372,24 +381,56 @@
                     });
                 }
                 function rep(value) {
-                    var id ="#"+value;
+                    var id = "#" + value;
                     $.ajax({
                         type: "put",
-                        url: "/building/comment/"+value,
+                        url: "/building/comment/" + value,
                         data: {
-                            "reply":$(id).val()
+                            "reply": $(id).val()
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            location.reload()
+                        },
+                        error: function () {
+                            alert('loi rep');
+                        }
+                    });
+                }
+                function putAval1(value) {
+                    $.ajax({
+                        type: "put",
+                        url: "/building/"+value+"/update",
+                        data: {
+                            "avalible":"unavalible"
                         },
                         dataType: "json",
                         success: function (response) {
                             location.reload()
                         },
                         error:function(){
-                            alert('loi rep');
+                            alert('loi put ava');
                         }
                     });
-                  }
-
+                }
+                function putAval2(value) {
+                    $.ajax({
+                        type: "put",
+                        url: "/building/"+value+"/update",
+                        data: {
+                            "avalible":"avalible"
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            location.reload()
+                        },
+                        error:function(){
+                            alert('loi put ava');
+                        }
+                    });
+                }
 
             </script>
 </body>
+
 </html>

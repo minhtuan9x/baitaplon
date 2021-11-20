@@ -14,7 +14,8 @@ var buildingSchema = mongoose.Schema({
     sellprice:String,
     customerids:Array,
     rank:Number,
-    commentids:Array
+    commentids:Array,
+    avalible:String
 })
 var building = mongoose.model("building",buildingSchema);
 module.exports  = building;

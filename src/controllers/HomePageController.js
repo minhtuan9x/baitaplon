@@ -47,7 +47,8 @@ class HomePageController {
                             "managerphone": item.managerphone,
                             "rentprice": item.rentprice,
                             "sellprice": item.sellprice,
-                            "rank": item.rank
+                            "rank": item.rank,
+                            "avalible":item.avalible
                         }
                         results.push(dataBuilding)
                     });
@@ -57,7 +58,6 @@ class HomePageController {
                    if(residual > 0 )
                     sum = sum +1 ;
                    //res.send(sum);
-                    
                     res.render('index', {listBuilding: results.slice(start,end),sum : sum,page:page});
                 })
             })

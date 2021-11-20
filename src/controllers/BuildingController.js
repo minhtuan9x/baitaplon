@@ -257,12 +257,14 @@ class BuildingController {
     }
     //[PUT] /building/:id/update
     updateModel(req, res) {
-        var id = req.params.id;
+        var id = req.params.id.trim();
         var dataUpdate = req.body;
         var dataBuilding = toBuildingRequest(dataUpdate);
         building.updateOne({ _id: id }, dataBuilding, function (err, data) {
-            if (err)
-                res.send(err);
+            if (err){
+                throw err;
+            }
+                
             else
                 res.json("ok");
         })
@@ -394,7 +396,8 @@ function toBuildingRespone(item, dis, rents) {
         "sellprice": item.sellprice,
         "customerids": item.customerids,
         "rank": item.rank,
-        "commentids": item.commentids
+        "commentids": item.commentids,
+        "avalible":item.avalible
     }
     return result;
 }
@@ -412,6 +415,7 @@ function toBuildingRequest(data) {
         "managerphone": data.managerphone,
         "rentprice": data.rentprice,
         "sellprice": data.sellprice,
+        "avalible":data.avalible
     }
     return result;
 }

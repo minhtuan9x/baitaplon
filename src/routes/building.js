@@ -25,9 +25,11 @@ router.delete('/:id/delete',building.deleteModel)
 
 // [POST] /building/:id/comment
 router.post('/:id/comment',building.insertComment)
-
 // [GET] /building/:id/comment
 router.get('/:id/comment',building.getCmt)
+// [PUT] /building/comment/:id
+router.put('/comment/:id', building.putRep)
+
 
 //[POST] /building/:id/customer
 router.post('/:id/customer',building.insertCustomer)

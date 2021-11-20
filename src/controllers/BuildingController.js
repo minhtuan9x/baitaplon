@@ -104,7 +104,7 @@ class BuildingController {
                                 res.send(err)
                             else
 
-                                 res.json("oke");
+                                res.json("oke");
 
 
                         })
@@ -120,20 +120,20 @@ class BuildingController {
     }
     //=====================================================================================================================
     //[PUT] /building/customer/:id/update
-    updateCustomer(req,res){
+    updateCustomer(req, res) {
         var idCus = req.params.id;
         var statusBody = req.body.status;
-        customer.findByIdAndUpdate(idCus,{status:statusBody},function(err,data){
-            if(err)
+        customer.findByIdAndUpdate(idCus, { status: statusBody }, function (err, data) {
+            if (err)
                 res.send(err);
-            else{
+            else {
                 res.json("ok");
             }
         })
-        
-        
+
+
     }
-    
+
     //=====================================================================================================================
     // [GET] /building/:id/customer  
     getCusByBuildingID(req, res) {
@@ -334,8 +334,48 @@ class BuildingController {
                             listCmt.push(item2)
                     })
                 })
-                res.json(listCmt);
+                var sum = listCmt.length;
+                var s5 = 0;
+                var s4 = 0;
+                var s3 = 0;
+                var s2 = 0;
+                var s1 = 0;
+                listCmt.forEach(item2 => {
+                    if (item2.rate == 5)
+                        s5++;
+                    if (item2.rate == 4)
+                        s4++;
+                    if (item2.rate == 3)
+                        s3++;
+                    if (item2.rate == 2)
+                        s2++;
+                    if (item2.rate == 1)
+                        s1++;
+                })
+                s5 = (s5 / sum) * 100;
+                s4 = (s4 / sum) * 100;
+                s3 = (s3 / sum) * 100;
+                s2 = (s2 / sum) * 100;
+                s1 = (s1 / sum) * 100;
+                var datares = {
+                    "listCmt": listCmt,
+                    "s1": s1,
+                    "s2": s2,
+                    "s3": s3,
+                    "s4": s4,
+                    "s5": s5,
+                    "sum": sum
+                }
+                res.json(datares);
             })
+        })
+    }
+    // [PUT] /building/comment/:id
+    putRep(req, res) {
+        var id = req.params.id;
+        comment.findByIdAndUpdate(id, { reply: req.body.reply }, function (err, data) {
+            if (err) throw err;
+            res.json(data);
         })
     }
 }
@@ -379,7 +419,8 @@ function toCommentReq(data) {
     var result = {
         "name": data.name,
         "content": data.content,
-        "rate": data.rate
+        "rate": data.rate,
+        "reply": ""
     }
     return result;
 }

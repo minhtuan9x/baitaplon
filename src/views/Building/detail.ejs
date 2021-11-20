@@ -13,7 +13,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td>  
                                     <h5 style="text-align: center;color: chocolate;"><b>Customer Contact</b></h6>
                                         <ul class="list-group">
                                             <% listCustomer.forEach(item2=>{%>
@@ -55,9 +55,89 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <%for(var i=1 ; i<=item.rank;i++){%>
-                                        <i class="fas fa-star"></i>
-                                        <%}%>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <table class="table" style="border-color: white;text-align: center;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <b style="font-size: 40px;margin-left: 45px;">
+                                                                <%=item.rank%>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <%for(var i=1 ; i<=item.rank;i++){%>
+                                                                <i class="fas fa-star"></i>
+                                                                <%}%>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="sum">
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <table class="table" style="border-color: white;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 10px;">
+                                                            <b>5 </b>
+                                                        </td>
+                                                        <td>   
+                                                            <div class="progress">
+                                                               <div  id="5" class="progress-bar"></div>
+                                                              </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 10px;">
+                                                            <b>4 </b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress">
+                                                                <div id="4" class="progress-bar"></div>
+                                                              </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 10px;">
+                                                            <b>3 </b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress">
+                                                                <div  id="3" class="progress-bar"></div>
+                                                              </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 10px;">
+                                                            <b>2 </b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress">
+                                                                <div  id="2" class="progress-bar"></div>
+                                                              </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 10px;">
+                                                            <b>1 </b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress">
+                                                                <div  id="1" class="progress-bar"></div>
+                                                              </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -138,7 +218,6 @@
                     <li class="list-group-item list-group-item-success"><b>Rate: </b><i class="fas fa-star"></i></li>
                     <li class="list-group-item list-group-item-success"><b>Comment: </b>Nhà đẹp phết</li>
                     <li></li>
-
                 </ul>
             </div>
             <div class="col-md-6">
@@ -305,15 +384,30 @@
                     dataType: "json",
                     success: function (response) {
                         $("#list2").empty();
-                        response.forEach(item => {
-                            var str = '<li class="list-group-item list-group-item-success"><b>Name: </b>'+item.name+'</li>'
-                            +'<li class="list-group-item list-group-item-success"><b>Rate: </b>'+item.rate+'/5'+'</li>'
-                            +'<li class="list-group-item list-group-item-success"><b>Comment: </b>'+item.content+'</li>'
-                            +'<li></li>';
+                        $("#sum").append('Total rate: ' + response.sum)
+                        $("#1").css("width",response.s1+"%")
+                        $("#2").css("width",response.s2+"%")
+                        $("#3").css("width",response.s3+"%")
+                        $("#4").css("width",response.s4+"%")
+                        $("#5").css("width",response.s5+"%")
+                        response.listCmt.forEach(item => {
+                            var star = "";
+                            for (var i = 1; i <= item.rate; i++) {
+                                star += '<i class="fas fa-star"></i>'
+                            }
+                            var rep = "";
+                            if (item.reply != undefined && item.reply != "") {
+                                rep = '<li class="list-group-item list-group-item-warning"><b>Admin: </b>' + item.reply + '</li>';
+                            }
+                            var str = '<li class="list-group-item list-group-item-success"><b>Guest: </b>' + item.name + '</li>'
+                                + '<li class="list-group-item list-group-item-success">' + star + '</li>'
+                                + '<li class="list-group-item list-group-item-success">' + item.content + '</li>'
+                                + rep
+                                + '<li></li>';
                             $("#list2").append(str)
                         });
                     },
-                    error:function(){
+                    error: function () {
                         console.log("loicmtget");
                     }
                 });
@@ -321,7 +415,7 @@
             </script>
             <style>
                 .list-group {
-                    height: 200px;
+                    height: 420px;
                     width: 100%;
                 }
 

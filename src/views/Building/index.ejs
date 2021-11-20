@@ -224,6 +224,7 @@
                                             <th>Name</th>
                                             <th>Rate</th>
                                             <th>Comment</th>
+                                            <th>Reply</th>
                                         </tr>
                                     </thead>
                                     <tbody id="showcom">
@@ -348,11 +349,19 @@
                         dataType: "json",
                         success: function (response) {
                             $("#showcom").empty()
-                            response.forEach(data => {
+                            response.listCmt.forEach(data => {
+                                var dtrep = "";
+                                if(data.reply==undefined||data.reply==""){
+                                    dtrep="";
+                                }else{
+                                    dtrep=data.reply;
+                                }
+                                var rep = '<td><input id="'+data._id+'" type="text" name="reply" value="'+dtrep+'"><button class="btn btn-danger" type="button" value="'+data._id+'" onclick="rep(value)">Rep</button></td>'
                                 var str = "<tr>"
                                     + "<td>" + data.name + "</td>"
                                     + "<td>" + data.rate +'/5'+ "</td>"
                                     + "<td>" + data.content + "</td>"
+                                    +rep
                                     + "</tr>";
                                 $("#showcom").append(str);
                             });
@@ -362,6 +371,23 @@
                         }
                     });
                 }
+                function rep(value) {
+                    var id ="#"+value;
+                    $.ajax({
+                        type: "put",
+                        url: "/building/comment/"+value,
+                        data: {
+                            "reply":$(id).val()
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            location.reload()
+                        },
+                        error:function(){
+                            alert('loi rep');
+                        }
+                    });
+                  }
 
 
             </script>

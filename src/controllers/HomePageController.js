@@ -8,8 +8,8 @@ class HomePageController {
         //Pagination
         var page = parseInt(req.query.page) || 1;
         var perPage = 2;
-        var start = (page -1) * perPage;
-        var end = page * perPage ;
+        var start = (page - 1) * perPage;
+        var end = page * perPage;
         var sum = 0;
         var residual = 0;
         //=========================================================
@@ -20,7 +20,12 @@ class HomePageController {
                 renttype.find(function (err, rentypes) {
                     var results = [];
                     var dis;
-                    data.forEach(item => {
+                    var dataPs = [];
+                    data.forEach(i => {
+                        if (i.avalible == "avalible")
+                            dataPs.push(i);
+                    })
+                    dataPs.forEach(item => {
                         var rents = [];
                         distrcits.forEach(item2 => {
                             if (item2._id == item.districtid)
@@ -48,36 +53,36 @@ class HomePageController {
                             "rentprice": item.rentprice,
                             "sellprice": item.sellprice,
                             "rank": item.rank,
-                            "avalible":item.avalible
+                            "avalible": item.avalible
                         }
                         results.push(dataBuilding)
                     });
                     sum = Math.floor(data.length / (perPage))
                     residual = data.length % (perPage)
-                   // res.send("abc"  + data.length/perPage);
-                   if(residual > 0 )
-                    sum = sum +1 ;
-                   //res.send(sum);
-                    res.render('index', {listBuilding: results.slice(start,end),sum : sum,page:page});
+                    // res.send("abc"  + data.length/perPage);
+                    if (residual > 0)
+                        sum = sum + 1;
+                    //res.send(sum);
+                    res.render('index', { listBuilding: results.slice(start, end), sum: sum, page: page });
                 })
             })
         })
-        
-        
-       
-       
+
+
+
+
     }
-    
+
 }
 function SumPage(ItemPerPage) {
     var sum = 0;
     var residual = 0;
-    building.find(function(err,data){
+    building.find(function (err, data) {
         sum = data.length / parseInt(ItemPerPage)
         residual = data.length % parseInt(ItemPerPage)
-    }) 
-    if(residual > 0 )
-        sum = sum +1 ;
-    return sum;      
+    })
+    if (residual > 0)
+        sum = sum + 1;
+    return sum;
 }
 module.exports = new HomePageController;

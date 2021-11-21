@@ -12,111 +12,112 @@
 
 <body>
     <%-include ("../public/ejspub/header.ejs")%>
-    
-    <div class="col-md-6 offset-md-3" style="background-color: #fff;margin-top: 25px;padding:20px;">
-        <form id="formup">
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Building Name</label>
-                        <input type="text" class="form-control" name="name">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Rent Area</label>
-                        <input type="text" class="form-control" name="rentarea" >
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <div class="form-group">
-                            <label>District</label>
-                            <select class="form-control" id="sel1" name="districtid">
-                                <%data.district.forEach(item=>{%>
-                                    <option value="<%=item._id%>">
+        <div class="container">
+            <div class="col-md-6 offset-md-3" style="background-color: #fff;margin-top: 25px;padding:20px;">
+                <form id="formup">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Building Name</label>
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Rent Area</label>
+                                <input type="text" class="form-control" name="rentarea">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>District</label>
+                                    <select class="form-control" id="sel1" name="districtid">
+                                        <%data.district.forEach(item=>{%>
+                                            <option value="<%=item._id%>">
+                                                <%=item.name%>
+                                            </option>
+                                            <%})%>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Ward</label>
+                                <input type="text" class="form-control" name="ward">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Street</label>
+                                <input type="text" class="form-control" name="street">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Manager Phone</label>
+                                <input type="text" class="form-control" name="managerphone">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Manager Name</label>
+                                <input type="text" class="form-control" name="managername">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Rentprice</label>
+                                <input type="text" class="form-control" name="rentprice">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Sellprice</label>
+                                <input type="text" class="form-control" name="sellprice">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Image Link</label>
+                                <input type="text" class="form-control" name="imagelink">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Note</label>
+                                <input type="text" class="form-control" name="note">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <%data.renttype.forEach((item)=>{%>
+                                    <label class="checkbox-inline">
+                                        <input id="check" type="checkbox" name="rentypes" value="<%=item._id%>">
                                         <%=item.name%>
-                                    </option>
+                                    </label>
                                     <%})%>
 
-                            </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Ward</label>
-                        <input type="text" class="form-control" name="ward" >
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Street</label>
-                        <input type="text" class="form-control" name="street" >
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Manager Phone</label>
-                        <input type="text" class="form-control" name="managerphone"
-                           >
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Manager Name</label>
-                        <input type="text" class="form-control" name="managername"
-                        >
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Rentprice</label>
-                        <input type="text" class="form-control" name="rentprice" >
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Sellprice</label>
-                        <input type="text" class="form-control" name="sellprice" >
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Image Link</label>
-                        <input type="text" class="form-control" name="imagelink">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Note</label>
-                        <input type="text" class="form-control" name="note">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <%data.renttype.forEach((item)=>{%>
-                            <label class="checkbox-inline">
-                                <input id="check" type="checkbox" name="rentypes" value="<%=item._id%>">
-                                <%=item.name%>
-                            </label>
-                            <%})%>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="button" id="bntsup" class="btn btn-info"><i class="fa fa-database"></i>
-                        Submit</button>
-                    <a class="btn btn-secondary" onclick="window.location.href='/building'"><i class="fa fa-list-alt"></i> View All</a>
-                </div>
-        </form>
-    </div>
-    <%-include ("../public/ejspub/footer.ejs")%>
-    <script>
-        $(document).ready(function(){
-            $("#bntsup").click(function(e){
-                e.preventDefault();
-                var data = $("#formup").serialize();
-                $.ajax({
-                    type: "post",
-                    url: "/building/insert",
-                    data: data,
-                    dataType: "json",
-                    success: function (response) {
-                        window.location.href="/building"
-                    }
-                });
-            })
-        })
-    </script>
+                        <div class="form-group">
+                            <button type="button" id="bntsup" class="btn btn-info"><i class="fa fa-database"></i>
+                                Submit</button>
+                            <a class="btn btn-secondary" onclick="window.location.href='/building'"><i
+                                    class="fa fa-list-alt"></i> View All</a>
+                        </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        <%-include ("../public/ejspub/footer.ejs")%>
+            <script>
+                $(document).ready(function () {
+                    $("#bntsup").click(function (e) {
+                        e.preventDefault();
+                        var data = $("#formup").serialize();
+                        $.ajax({
+                            type: "post",
+                            url: "/building/insert",
+                            data: data,
+                            dataType: "json",
+                            success: function (response) {
+                                window.location.href = "/building"
+                            }
+                        });
+                    })
+                })
+            </script>
 
 </body>
 
